@@ -27,7 +27,7 @@ class AuthController extends Controller
             $credentials = $request->only(['email', 'password']);
             $user = User::where('email', $request->email)->first();
             if (isset($user)) {
-                $nama = $user->nama;
+                $nama = $user->name;
                 $email = $user->email;
                 if (!$token = Auth::attempt($credentials)) {
                     return response()->json(['message' => 'Unauthorized'], 401);

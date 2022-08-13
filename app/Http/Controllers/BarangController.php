@@ -10,6 +10,7 @@ use App\Models\BarangModalKeluar;
 use App\Models\BarangModalPinjam;
 use App\Models\Pengaturan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 
 class BarangController extends Controller
@@ -394,6 +395,42 @@ class BarangController extends Controller
                     'data' => []
                 ]);
             }
+        }
+    }
+    public function importexcel(Request $request)
+    {
+        $count = count($request->rows);
+        $count -= 1;
+        $arraydata = [];
+        for ($x = 0; $x <= $count; $x++) {
+            $row = $request->rows[$x];
+            $data = Barang::create([
+                'id_kategori' => $row['id_kategori'],
+                'nama' => $row['nama'],
+                'satuan' => $row['satuan']
+            ]);
+            array_push($arraydata,$data);
+        }
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua data telah berhasil dibuat',
+            'data' => $arraydata
+        ]);
+    }
+    public function show($id){
+        $data = Barang::whereId($id)->first();
+        if(isset($data)){
+            return response()->json([
+                'code' => 1,
+                'message' => 'detail data dengan id ' . $id,
+                'data' => $data
+            ]);
+        }else{
+            return response()->json([
+                'code' => 0,
+                'message' => 'data tidak ditemukan',
+                'data' => []
+            ]);
         }
     }
     public function update(Request $request,$id){

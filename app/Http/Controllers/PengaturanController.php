@@ -47,6 +47,22 @@ class PengaturanController extends Controller
             }
         }
     }
+    public function show($id){
+        $data = Pengaturan::whereId($id)->first();
+        if(isset($data)){
+            return response()->json([
+                'code' => 1,
+                'message' => 'detail data dengan id ' . $id,
+                'data' => $data
+            ]);
+        }else{
+            return response()->json([
+                'code' => 0,
+                'message' => 'data tidak ditemukan',
+                'data' => []
+            ]);
+        }
+    }
     public function update(Request $request,$id){
         $validator = Validator::make($request->all(),[
             'key' => 'required',
