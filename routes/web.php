@@ -48,4 +48,11 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->post('/update/{id}','SuplayerController@update');
         $router->delete('/destroy/{id}','SuplayerController@destroy');
     });
+    $router->group(['prefix' => 'user'], function () use ($router) {
+        $router->get('/', 'UserController@index');
+        $router->post('/store','UserController@store');
+        $router->get('/show/{id}','UserController@show');
+        $router->post('/update/{id}','UserController@update');
+        $router->delete('/destroy/{id}','UserController@destroy');
+    });
 });
