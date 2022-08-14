@@ -270,11 +270,10 @@ class BarangController extends Controller
         }
     }
     public function confirmBarangKeluar($id){
-        $data = BarangKeluar::whereId($id)->first();
-        if(isset($data)){
-            $data->update([
-                'confrim' => 1
-            ]);
+        $data = BarangKeluar::whereId($id)->update([
+            'confirm' => 1
+        ]);
+        if($data){
             return response()->json([
                 'code' => 1,
                 'message' => 'data berhasil di confrim',
@@ -348,11 +347,10 @@ class BarangController extends Controller
         }
     }
     public function confirmBarangModalKeluar($id){
-        $data = BarangModalKeluar::where('id_barang',$id)->first();
-        if(isset($data)){
-            $data->update([
-                'confrim' => 1
-            ]);
+        $data = BarangModalKeluar::where('id_barang',$id)->update([
+            'confrim' => 1
+        ]);
+        if($data){
             return response()->json([
                 'code' => 1,
                 'message' => 'data berhasil di confrim',
@@ -428,11 +426,10 @@ class BarangController extends Controller
         }
     }
     public function confirmBarangModalPinjam($id){
-        $data = BarangModalPinjam::where('id_barang',$id)->first();
-        if(isset($data)){
-            $data->update([
-                'confrim' => 1
-            ]);
+        $data = BarangModalPinjam::where('id_barang',$id)->update([
+            'confrim' => 1
+        ]);
+        if($data){
             return response()->json([
                 'code' => 1,
                 'message' => 'data berhasil di confrim',
