@@ -10,14 +10,26 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->get('/','BarangController@index');
         $router->get('/fisik','BarangController@indexBarangFisik');
         $router->get('/indexconfrim','BarangController@indexConfrim');
+
+        $router->get('/indexbarangmasuk','BarangController@indexBarangMasuk');
         $router->post('/barangmasuk','BarangController@barangMasuk');
+
+        $router->get('/indexbarangkeluar','BarangController@indexBarangKeluar');
         $router->post('/barangkeluar','BarangController@barangKeluar');
-        $router->post('/confirmbarangkeluar','BarangController@confirmBarangKeluar');
+        $router->get('/confirmbarangkeluar/{id}','BarangController@confirmBarangKeluar');
+
+        $router->get('/indexbarangmodalkeluar','BarangController@indexBarangModalKeluar');
         $router->post('/barangmodalkeluar','BarangController@barangModalKeluar');
-        $router->post('/confirmbarangmodalkeluar','BarangController@confirmBarangModalKeluar');
+        $router->get('/confirmbarangmodalkeluar/{id}','BarangController@confirmBarangModalKeluar');
+
+        $router->get('/indexbarangmodalpinjam','BarangController@indexBarangModalPinjam');
         $router->post('/barangmodalpinjam','BarangController@barangModalPinjam');
-        $router->post('/confirmbarangmodalpinjam','BarangController@confirmBarangModalPinjam');
+        $router->get('/confirmbarangmodalpinjam/{id}','BarangController@confirmBarangModalPinjam');
+
+
+        $router->get('/indexbarangmodalkembali','BarangController@indexBarangModalKembali');
         $router->post('/barangmodalkembali','BarangController@barangModalKembali');
+
         $router->post('/importexcel','BarangController@importexcel');
         $router->post('/store','BarangController@store');
         $router->get('/show/{id}','BarangController@show');

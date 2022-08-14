@@ -79,6 +79,14 @@ class BarangController extends Controller
             }
         }
     }
+    public function indexBarangMasuk(){
+        $data = BarangMasuk::get();
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua data',
+            'data' => $data,
+        ]);
+    }
     public function barangMasuk(Request $request){
         $validator = Validator::make($request->all(),[
             'id_barang' => 'required',
@@ -210,6 +218,14 @@ class BarangController extends Controller
             }
         }
     }
+    public function indexBarangKeluar(){
+        $data = BarangKeluar::get();
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua data',
+            'data' => $data,
+        ]);
+    }
     public function barangKeluar(Request $request){
         $validator = Validator::make($request->all(),[
             'id_karyawan' => 'required',
@@ -268,6 +284,14 @@ class BarangController extends Controller
                 'data' => []
             ]);
         }
+    }
+    public function indexBarangModalKeluar(){
+        $data = BarangModalKeluar::get();
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua data',
+            'data' => $data,
+        ]);
     }
     public function barangModalKeluar(Request $request){
         $validator = Validator::make($request->all(),[
@@ -335,6 +359,14 @@ class BarangController extends Controller
                 'data' => []
             ]);
         }
+    }
+    public function indexBarangModalPinjam(){
+        $data = BarangModalPinjam::get();
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua data',
+            'data' => $data,
+        ]);
     }
     public function barangModalPinjam(Request $request){
         $validator = Validator::make($request->all(),[
@@ -404,6 +436,14 @@ class BarangController extends Controller
                 'data' => []
             ]);
         }
+    }
+    public function indexBarangModalKembali(){
+        $data = BarangModalKembali::get();
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua data',
+            'data' => $data,
+        ]);
     }
     public function barangModalKembali(Request $request){
         $validator = Validator::make($request->all(),[
