@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->date('tanggal_keluar');
             $table->string('kegunaan');
+            $table->boolean('confirm')->default(false);
             $table->timestamps();
         });
     }

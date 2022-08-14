@@ -11,10 +11,10 @@ class BarangModalPinjam extends Model
         'id_karyawan',
         'id_barang',
         'id_barang_fisik',
-        'jumlah',
         'tanggal_keluar',
         'kegunaan',
-        'tanggal_kembali'
+        'tanggal_kembali',
+        'confirm'
     ];
 
     // belongsTo

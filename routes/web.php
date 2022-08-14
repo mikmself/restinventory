@@ -9,10 +9,14 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
     $router->group(['prefix' => 'barang'], function () use ($router) {
         $router->get('/','BarangController@index');
         $router->get('/fisik','BarangController@indexBarangFisik');
+        $router->get('/indexconfrim','BarangController@indexConfrim');
         $router->post('/barangmasuk','BarangController@barangMasuk');
         $router->post('/barangkeluar','BarangController@barangKeluar');
+        $router->post('/confirmbarangkeluar','BarangController@confirmBarangKeluar');
         $router->post('/barangmodalkeluar','BarangController@barangModalKeluar');
+        $router->post('/confirmbarangmodalkeluar','BarangController@confirmBarangModalKeluar');
         $router->post('/barangmodalpinjam','BarangController@barangModalPinjam');
+        $router->post('/confirmbarangmodalpinjam','BarangController@confirmBarangModalPinjam');
         $router->post('/barangmodalkembali','BarangController@barangModalKembali');
         $router->post('/importexcel','BarangController@importexcel');
         $router->post('/store','BarangController@store');

@@ -12,7 +12,8 @@ class BarangKeluar extends Model
         'id_barang',
         'jumlah',
         'tanggal_keluar',
-        'kegunaan'
+        'kegunaan',
+        'confirm'
     ];
 
     // belongsTo

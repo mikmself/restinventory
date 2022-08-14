@@ -7,6 +7,7 @@ use App\Models\BarangFisik;
 use App\Models\BarangKeluar;
 use App\Models\BarangMasuk;
 use App\Models\BarangModalKeluar;
+use App\Models\BarangModalKembali;
 use App\Models\BarangModalPinjam;
 use App\Models\Pengaturan;
 use Illuminate\Http\Request;
@@ -29,6 +30,20 @@ class BarangController extends Controller
             'code' => 1,
             'message' => 'data barang fisik',
             'data' => $data
+        ]);
+    }
+    public function indexConfrim(){
+        $barangkeluar = BarangKeluar::where('confirm','false')->get();
+        $barangmodalkeluar = BarangModalKeluar::where('confirm','false')->get();
+        $barangmodalpinjam = BarangModalPinjam::where('confirm','false')->get();
+        return response()->json([
+            'code' => 1,
+            'message' => 'data barang yang belum di confirm',
+            'data' => [
+                'barangkeluar' => $barangkeluar,
+                'barangmodalkeluar' => $barangmodalkeluar,
+                'barangmodalpinjam' => $barangmodalpinjam,
+            ]
         ]);
     }
     public function store(Request $request){
@@ -238,12 +253,27 @@ class BarangController extends Controller
             }
         }
     }
+    public function confirmBarangKeluar($id){
+        $data = BarangKeluar::whereId($id)->first();
+        if(isset($data)){
+            return response()->json([
+                'code' => 1,
+                'message' => 'data berhasil di confrim',
+                'data' => []
+            ]);
+        }else{
+            return response()->json([
+                'code' => 0,
+                'message' => 'data tidak ditemukan',
+                'data' => []
+            ]);
+        }
+    }
     public function barangModalKeluar(Request $request){
         $validator = Validator::make($request->all(),[
             'id_karyawan' => 'required',
             'id_barang' => 'required',
             'id_barang_fisik' => 'required',
-            'jumlah' => 'required',
             'tanggal_keluar' => 'required',
             'ruang' => 'required'
         ]);
@@ -263,7 +293,6 @@ class BarangController extends Controller
                     'id_karyawan' => $request->input('id_karyawan'),
                     'id_barang' => $idbarang,
                     'id_barang_fisik' => $idbarangfisik[$i],
-                    'jumlah' => $jumlah,
                     'tanggal_keluar' => $request->input('tanggal_keluar'),
                     'ruang' => $request->input('ruang')
                 ]);
@@ -291,12 +320,27 @@ class BarangController extends Controller
             }
         }
     }
+    public function confirmBarangModalKeluar($id){
+        $data = BarangModalKeluar::where('id_barang',$id)->first();
+        if(isset($data)){
+            return response()->json([
+                'code' => 1,
+                'message' => 'data berhasil di confrim',
+                'data' => []
+            ]);
+        }else{
+            return response()->json([
+                'code' => 0,
+                'message' => 'data tidak ditemukan',
+                'data' => []
+            ]);
+        }
+    }
     public function barangModalPinjam(Request $request){
         $validator = Validator::make($request->all(),[
             'id_karyawan' => 'required',
             'id_barang' => 'required',
             'id_barang_fisik' => 'required',
-            'jumlah' => 'required',
             'tanggal_keluar' => 'required',
             'kegunaan' => 'required',
             'tanggal_kembali' => 'required',
@@ -317,7 +361,6 @@ class BarangController extends Controller
                     'id_karyawan' => $request->input('id_karyawan'),
                     'id_barang' => $idbarang,
                     'id_barang_fisik' => $idbarangfisik[$i],
-                    'jumlah' => $jumlah,
                     'tanggal_keluar' => $request->input('tanggal_keluar'),
                     'kegunaan' => $request->input('kegunaan'),
                     'tanggal_kembali' => $request->input('tanggal_kembali'),
@@ -346,11 +389,27 @@ class BarangController extends Controller
             }
         }
     }
+    public function confirmBarangModalPinjam($id){
+        $data = BarangModalPinjam::where('id_barang',$id)->first();
+        if(isset($data)){
+            return response()->json([
+                'code' => 1,
+                'message' => 'data berhasil di confrim',
+                'data' => []
+            ]);
+        }else{
+            return response()->json([
+                'code' => 0,
+                'message' => 'data tidak ditemukan',
+                'data' => []
+            ]);
+        }
+    }
     public function barangModalKembali(Request $request){
         $validator = Validator::make($request->all(),[
             'id_barang' => 'required',
             'tanggal_keluar' => 'required',
-            'tanggal_kembali'
+            'tanggal_kembali' => 'required'
         ]);
         if($validator->fails()){
             return response()->json([
@@ -371,6 +430,11 @@ class BarangController extends Controller
             foreach ($barangpinjam as $data) {
                 BarangFisik::whereId($data->id_barang_fisik)->update([
                     'status_pengambilan' => 0
+                ]);
+                BarangModalKembali::create([
+                    'id_barang' => $idbarang,
+                    'id_barang_fisik' => $data->id_barang_fisik,
+                    'tanggal_kembali' => $tanggalkembali
                 ]);
                 $datastore = BarangFisik::whereId($data->id_barang_fisik)->first();
                 array_push($databarangfisik,$datastore);
