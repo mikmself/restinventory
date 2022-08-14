@@ -348,7 +348,7 @@ class BarangController extends Controller
     }
     public function confirmBarangModalKeluar($id){
         $data = BarangModalKeluar::where('id_barang',$id)->update([
-            'confrim' => 1
+            'confirm' => 1
         ]);
         if($data){
             return response()->json([
@@ -427,7 +427,7 @@ class BarangController extends Controller
     }
     public function confirmBarangModalPinjam($id){
         $data = BarangModalPinjam::where('id_barang',$id)->update([
-            'confrim' => 1
+            'confirm' => 1
         ]);
         if($data){
             return response()->json([
