@@ -13,7 +13,7 @@ class BarangModalKeluar extends Model
         'id_barang_fisik',
         'tanggal_keluar',
         'ruang',
-        'confirm'
+        'confrim'
     ];
 
     // belongsTo

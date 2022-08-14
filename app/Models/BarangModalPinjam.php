@@ -14,7 +14,7 @@ class BarangModalPinjam extends Model
         'tanggal_keluar',
         'kegunaan',
         'tanggal_kembali',
-        'confirm'
+        'confrim'
     ];
 
     // belongsTo
