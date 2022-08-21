@@ -25,7 +25,7 @@ class BarangController extends Controller
         ]);
     }
     public function indexBarangFisik(){
-        $data = BarangFisik::get();
+        $data = BarangFisik::with('barang')->get();
         return response()->json([
             'code' => 1,
             'message' => 'data barang fisik',
@@ -80,7 +80,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangMasuk(){
-        $data = BarangMasuk::get();
+        $data = BarangMasuk::with(['barang','suplayer','kategori'])->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
