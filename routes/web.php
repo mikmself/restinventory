@@ -6,6 +6,7 @@ $router->get('/', function () use ($router) {
 $router->post('/auth/login', 'AuthController@login');
 
 $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router) {
+    $router->get('/auth/cektoken', 'AuthController@cekToken');
     $router->group(['prefix' => 'barang'], function () use ($router) {
         $router->get('/','BarangController@index');
         $router->get('/fisik','BarangController@indexBarangFisik');

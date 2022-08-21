@@ -96,4 +96,11 @@ class AuthController extends Controller
             }
         }
     }
+    public function cekToken(){
+        return response()->json([
+            'code' => 1,
+            'message' => 'lolos',
+            'data' => []
+        ]);
+    }
 }
