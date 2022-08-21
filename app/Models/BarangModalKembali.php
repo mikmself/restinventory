@@ -12,4 +12,10 @@ class BarangModalKembali extends Model
         'id_barang_fisik',
         'tanggal_kembali'
     ];
+    public function barang(){
+        return $this->belongsTo(Barang::class,'id_barang');
+    }
+    public function barangfisik(){
+        return $this->belongsTo(BarangFisik::class,'id_barang_fisik');
+    }
 }

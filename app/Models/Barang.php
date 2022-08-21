@@ -32,6 +32,9 @@ class Barang extends Model
     public function barangmodalpinjam(){
         return $this->hasMany(BarangModalPinjam::class,'id_barang');
     }
+    public function barangmodalkembali(){
+        return $this->hasMany(BarangModalKembali::class,'id_barang');
+    }
     public function barangmasuk(){
         return $this->hasMany(BarangMasuk::class,'id_barang');
     }

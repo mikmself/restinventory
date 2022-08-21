@@ -25,4 +25,7 @@ class BarangFisik extends Model
     public function barangmodalpinjam(){
         return $this->hasMany(BarangModalKeluar::class,'id_barang_fisik');
     }
+    public function barangmodalkembali(){
+        return $this->hasMany(BarangModalKembali::class,'id_barang_fisik');
+    }
 }

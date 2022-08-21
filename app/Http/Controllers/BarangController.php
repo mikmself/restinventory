@@ -219,7 +219,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangKeluar(){
-        $data = BarangKeluar::get();
+        $data = BarangKeluar::with(['barang','karyawan'])->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -288,7 +288,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangModalKeluar(){
-        $data = BarangModalKeluar::get();
+        $data = BarangModalKeluar::with(['barang','karyawan','barangfisik'])->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -365,7 +365,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangModalPinjam(){
-        $data = BarangModalPinjam::get();
+        $data = BarangModalPinjam::with(['barang','karyawan','barangfisik'])->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -444,7 +444,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangModalKembali(){
-        $data = BarangModalKembali::get();
+        $data = BarangModalKembali::with(['barang','barangfisik'])->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
