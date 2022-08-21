@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Validator;
 class BarangController extends Controller
 {
     public function index(){
-        $data = Barang::get();
+        $data = Barang::with('kategori')->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
