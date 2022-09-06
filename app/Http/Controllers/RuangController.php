@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Support\Str;
+use App\Models\Ruang;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class RuangController extends Controller
 {
     public function index(){
-        $data = User::get();
+        $data = Ruang::get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -20,12 +18,7 @@ class UserController extends Controller
     }
     public function store(Request $request){
         $validator = Validator::make($request->all(),[
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email' => 'required',
-            'notelp' => 'required',
-            'level' => 'required',
-            'password' => 'required',
+            'nama' => 'required'
         ]);
         if($validator->fails()){
             return response()->json([
@@ -34,14 +27,8 @@ class UserController extends Controller
                 'data' => []
             ]);
         }else{
-            $data = User::create([
-                'firstname' => $request->input('name'),
-                'lastname' => $request->input('name'),
-                'email' => $request->input('email'),
-                'notelp' => $request->input('notelp'),
-                'level' => $request->input('level'),
-                'token' => Str::random(60),
-                'password' => Hash::make($request->input('password')),
+            $data = Ruang::create([
+                'nama' => $request->input('nama'),
             ]);
             if($data){
                 return response()->json([
@@ -59,7 +46,7 @@ class UserController extends Controller
         }
     }
     public function show($id){
-        $data = User::whereId($id)->first();
+        $data = Ruang::whereId($id)->first();
         if(isset($data)){
             return response()->json([
                 'code' => 1,
@@ -76,11 +63,7 @@ class UserController extends Controller
     }
     public function update(Request $request,$id){
         $validator = Validator::make($request->all(),[
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email' => 'required',
-            'notelp' => 'required',
-            'level' => 'required',
+            'nama' => 'required'
         ]);
         if($validator->fails()){
             return response()->json([
@@ -89,14 +72,10 @@ class UserController extends Controller
                 'data' => []
             ]);
         }else{
-            $data = User::whereId($id)->first();
+            $data = Ruang::whereId($id)->first();
             if(isset($data)){
                 $update = $data->update([
-                    'firstname' => $request->input('name'),
-                    'lastname' => $request->input('name'),
-                    'email' => $request->input('email'),
-                    'notelp' => $request->input('notelp'),
-                    'level' => $request->input('level'),
+                    'nama' => $request->input('nama'),
                 ]);
                 if($update){
                     return response()->json([
@@ -121,7 +100,7 @@ class UserController extends Controller
         }
     }
     public function destroy($id){
-        $data = User::whereId($id)->first();
+        $data = Ruang::whereId($id)->first();
         if(isset($data)){
             $delete = $data->delete();
             if($delete){

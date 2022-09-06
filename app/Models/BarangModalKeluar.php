@@ -12,7 +12,7 @@ class BarangModalKeluar extends Model
         'id_barang',
         'id_barang_fisik',
         'tanggal_keluar',
-        'ruang',
+        'id_ruang',
         'confirm'
     ];
 
@@ -25,5 +25,8 @@ class BarangModalKeluar extends Model
     }
     public function barangfisik(){
         return $this->belongsTo(BarangFisik::class,'id_barang_fisik');
+    }
+    public function ruang(){
+        return $this->belongsTo(Ruang::class,'id_ruang');
     }
 }

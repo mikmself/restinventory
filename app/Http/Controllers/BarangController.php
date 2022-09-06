@@ -116,8 +116,10 @@ class BarangController extends Controller
                 $prefix = Pengaturan::where('key','prefix')->pluck('value')->first();
                 $infix = Pengaturan::where('key','infix')->pluck('value')->first();
                 $suffix = Pengaturan::where('key','suffix')->pluck('value')->first();
+                // mencari barang dengan nama yang mirip
+                $selectbarangfisik = BarangFisik::where('kode','like','%',$barang->nama,'%')->get();
                 // Mencari max kode tertingi
-                $max = BarangFisik::max('kode');
+                $max = $selectbarangfisik->max('kode');
                 // Menacari barang fisik sesuai kode
                 $barangfisik = BarangFisik::where('kode',$max)->first();
 
@@ -136,7 +138,7 @@ class BarangController extends Controller
                         for ($i=1; $i <= $jumlah; $i++) {
                             $storebarangfisik = BarangFisik::create([
                                 'id_barang' => $idbarang,
-                                'kode' => $prefix . "." . str_pad($i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
+                                'kode' => $prefix . "." . $barang->nama . "." . str_pad($i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
                             ]);
                             array_push($databarangfisik,$storebarangfisik);
                         }
@@ -166,7 +168,7 @@ class BarangController extends Controller
                         for ($i=1; $i <= $jumlah; $i++) {
                             $storebarangfisik = BarangFisik::create([
                                 'id_barang' => $idbarang,
-                                'kode' => $prefix . "." . str_pad($angkainfix+$i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
+                                'kode' => $prefix . "." . $barang->nama . "." . str_pad($angkainfix+$i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
                             ]);
                             array_push($databarangfisik,$storebarangfisik);
                         }
@@ -288,7 +290,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangModalKeluar(){
-        $data = BarangModalKeluar::with(['barang','karyawan','barangfisik'])->get();
+        $data = BarangModalKeluar::with(['barang','karyawan','barangfisik','ruang'])->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -300,8 +302,8 @@ class BarangController extends Controller
             'id_karyawan' => 'required',
             'id_barang' => 'required',
             'id_barang_fisik' => 'required',
-            'tanggal_keluar' => 'required',
-            'ruang' => 'required'
+            'id_ruang' => 'required',
+            'tanggal_keluar' => 'required'
         ]);
         if($validator->fails()){
             return response()->json([
@@ -319,8 +321,8 @@ class BarangController extends Controller
                     'id_karyawan' => $request->input('id_karyawan'),
                     'id_barang' => $idbarang,
                     'id_barang_fisik' => $idbarangfisik[$i],
+                    'id_ruang' => $request->input('id_ruang'),
                     'tanggal_keluar' => $request->input('tanggal_keluar'),
-                    'ruang' => $request->input('ruang')
                 ]);
                 BarangFisik::whereId($idbarangfisik[$i])->update([
                     'status_pengambilan' => 1
@@ -365,7 +367,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangModalPinjam(){
-        $data = BarangModalPinjam::with(['barang','karyawan','barangfisik'])->get();
+        $data = BarangModalPinjam::with(['barang','karyawan','barangfisik','ruang'])->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -378,6 +380,7 @@ class BarangController extends Controller
             'id_barang' => 'required',
             'id_barang_fisik' => 'required',
             'tanggal_keluar' => 'required',
+            'id_ruang' => 'required',
             'kegunaan' => 'required',
             'tanggal_kembali' => 'required',
         ]);
@@ -397,6 +400,7 @@ class BarangController extends Controller
                     'id_karyawan' => $request->input('id_karyawan'),
                     'id_barang' => $idbarang,
                     'id_barang_fisik' => $idbarangfisik[$i],
+                    'id_ruang' => $request->input('id_ruang'),
                     'tanggal_keluar' => $request->input('tanggal_keluar'),
                     'kegunaan' => $request->input('kegunaan'),
                     'tanggal_kembali' => $request->input('tanggal_kembali'),

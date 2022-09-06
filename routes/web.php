@@ -58,6 +58,13 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->post('/update/{id}','PengaturanController@update');
         $router->delete('/destroy/{id}','PengaturanController@destroy');
     });
+    $router->group(['prefix' => 'ruang'], function () use ($router) {
+        $router->get('/', 'RuangController@index');
+        $router->post('/store','RuangController@store');
+        $router->get('/show/{id}','RuangController@show');
+        $router->post('/update/{id}','RuangController@update');
+        $router->delete('/destroy/{id}','RuangController@destroy');
+    });
     $router->group(['prefix' => 'suplayer'], function () use ($router) {
         $router->get('/', 'SuplayerController@index');
         $router->post('/store','SuplayerController@store');

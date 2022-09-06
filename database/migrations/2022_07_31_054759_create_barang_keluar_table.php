@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('id_karyawan')->index()->constrained('karyawan')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_barang')->index()->constrained('barang')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('jumlah');
-            $table->date('tanggal_keluar');
+            $table->timestamp('tanggal_keluar');
             $table->string('kegunaan');
             $table->boolean('confirm')->default(false);
             $table->timestamps();

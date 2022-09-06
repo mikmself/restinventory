@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('id_karyawan')->index()->constrained('karyawan')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_barang')->index()->constrained('barang')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_barang_fisik')->index()->constrained('barang_fisik')->onUpdate('cascade')->onDelete('cascade');
-            $table->date('tanggal_keluar');
-            $table->string('ruang');
+            $table->foreignId('id_ruang')->index()->constrained('ruang')->onUpdate('cascade')->onDelete('cascade');
+            $table->timestamp('tanggal_keluar');
             $table->boolean('confirm')->default(false);
             $table->timestamps();
         });

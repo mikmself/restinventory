@@ -6,6 +6,7 @@ use App\Models\Barang;
 use App\Models\Karyawan;
 use App\Models\Kategori;
 use App\Models\Pengaturan;
+use App\Models\Ruang;
 use App\Models\Suplayer;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -29,6 +30,10 @@ class DatabaseSeeder extends Seeder
         Pengaturan::create([
             'key' => 'suffix',
             'value' => 'PURWOKERTO'
+        ]);
+        Pengaturan::create([
+            'key' => 'logo',
+            'value' => '/assets/images/logo.png'
         ]);
         //Karyawan========================================================================
         Karyawan::create([
@@ -62,12 +67,32 @@ class DatabaseSeeder extends Seeder
         ]);
         //User=======================================================================
         User::create([
-            'name' => 'Muhamad Irga Khoirul Mahfis',
+            'firstname' => 'Muhamad Irga',
+            'lastname' => 'Khoirul Mahfis',
             'email' => 'mikmself@gmail.com',
             'notelp' => '081327546471',
             'level' => 'superadmin',
             'password' => Hash::make('admin123'),
             'token' => Str::random(60)
+        ]);
+        User::create([
+            'firstname' => 'Yoga Willy',
+            'lastname' => 'Utomo',
+            'email' => 'yogawilly@gmail.com',
+            'notelp' => '081874263823',
+            'level' => 'superadmin',
+            'password' => Hash::make('admin123'),
+            'token' => Str::random(60)
+        ]);
+        //Ruang======================================================================
+        Ruang::create([
+            'nama' => 'C.2.12'
+        ]);
+        Ruang::create([
+            'nama' => 'C.2.13'
+        ]);
+        Ruang::create([
+            'nama' => 'C.2.14'
         ]);
     }
 }

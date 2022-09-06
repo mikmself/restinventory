@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('id_suplayer')->index()->constrained('suplayer')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_kategori')->index()->constrained('kategori')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('jumlah');
-            $table->date('tanggal_masuk');
+            $table->timestamp('tanggal_masuk');
             $table->string('pemesan');
             $table->string('penerima');
             $table->timestamps();

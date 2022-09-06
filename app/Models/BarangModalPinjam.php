@@ -11,6 +11,7 @@ class BarangModalPinjam extends Model
         'id_karyawan',
         'id_barang',
         'id_barang_fisik',
+        'id_ruang',
         'tanggal_keluar',
         'kegunaan',
         'tanggal_kembali',
@@ -26,5 +27,8 @@ class BarangModalPinjam extends Model
     }
     public function barangfisik(){
         return $this->belongsTo(BarangFisik::class,'id_barang_fisik');
+    }
+    public function ruang(){
+        return $this->belongsTo(Ruang::class,'id_ruang');
     }
 }
