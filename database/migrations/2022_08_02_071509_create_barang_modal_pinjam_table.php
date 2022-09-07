@@ -14,7 +14,7 @@ return new class extends Migration
             $table->foreignId('id_barang')->index()->constrained('barang')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_barang_fisik')->index()->constrained('barang_fisik')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_ruang')->index()->constrained('ruang')->onUpdate('cascade')->onDelete('cascade');
-            $table->date('tanggal_keluar');
+            $table->timestamp('tanggal_keluar');
             $table->string('kegunaan');
             $table->timestamp('tanggal_kembali');
             $table->boolean('confirm')->default(false);

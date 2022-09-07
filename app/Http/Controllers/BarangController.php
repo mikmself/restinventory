@@ -254,14 +254,22 @@ class BarangController extends Controller
             ]);
             if($data){
                 $databarang = Barang::whereId($idbarang)->first();
-                $databarang->update([
-                    'stok' => $databarang->stok - $jumlah
-                ]);
-                return response()->json([
-                    'code' => 0,
-                    'message' => 'operasi barang keluar berhasil',
-                    'data' => $data
-                ]);
+                if($databarang->stok == 0){
+                    return response()->json([
+                        'code' => 0,
+                        'message' => 'stok barang masih kosong!',
+                        'data' => []
+                    ]);
+                }else{
+                    $databarang->update([
+                        'stok' => $databarang->stok - $jumlah
+                    ]);
+                    return response()->json([
+                        'code' => 0,
+                        'message' => 'operasi barang keluar berhasil',
+                        'data' => $data
+                    ]);
+                }
             }else{
                 return response()->json([
                     'code' => 0,
@@ -312,9 +320,9 @@ class BarangController extends Controller
                 'data' => []
             ]);
         }else{
-            $jumlah = $request->input('jumlah');
             $idbarang = $request->input('id_barang');
             $idbarangfisik = $request->input('id_barang_fisik');
+            $jumlah = count($idbarangfisik);
             $databarangfisik = [];
             for ($i=0; $i < count($idbarangfisik); $i++) {
                 $data = BarangModalKeluar::create([
@@ -391,9 +399,9 @@ class BarangController extends Controller
                 'data' => []
             ]);
         }else{
-            $jumlah = $request->input('jumlah');
             $idbarang = $request->input('id_barang');
             $idbarangfisik = $request->input('id_barang_fisik');
+            $jumlah = count($idbarangfisik);
             $databarangfisik = [];
             for ($i=0; $i < count($idbarangfisik); $i++) {
                 $data = BarangModalPinjam::create([
