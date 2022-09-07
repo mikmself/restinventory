@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -16,7 +17,7 @@ return new class extends Migration
             $table->foreignId('id_ruang')->index()->constrained('ruang')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamp('tanggal_keluar');
             $table->string('kegunaan');
-            $table->timestamp('tanggal_kembali');
+            $table->timestamp('tanggal_kembali')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->boolean('confirm')->default(false);
             $table->timestamps();
         });
