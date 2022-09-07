@@ -117,7 +117,7 @@ class BarangController extends Controller
                 $infix = Pengaturan::where('key','infix')->pluck('value')->first();
                 $suffix = Pengaturan::where('key','suffix')->pluck('value')->first();
                 // mencari barang dengan nama yang mirip
-                $selectbarangfisik = BarangFisik::where('kode','like','%',$barang->nama,'%')->get();
+                $selectbarangfisik = BarangFisik::where('kode','like','%' .  $barang->nama . '%')->get();
                 // Mencari max kode tertingi
                 $max = $selectbarangfisik->max('kode');
                 // Menacari barang fisik sesuai kode
