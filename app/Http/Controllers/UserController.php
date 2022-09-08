@@ -35,8 +35,8 @@ class UserController extends Controller
             ]);
         }else{
             $data = User::create([
-                'firstname' => $request->input('name'),
-                'lastname' => $request->input('name'),
+                'firstname' => $request->input('firstname'),
+                'lastname' => $request->input('lastname'),
                 'email' => $request->input('email'),
                 'notelp' => $request->input('notelp'),
                 'level' => $request->input('level'),
@@ -92,8 +92,8 @@ class UserController extends Controller
             $data = User::whereId($id)->first();
             if(isset($data)){
                 $update = $data->update([
-                    'firstname' => $request->input('name'),
-                    'lastname' => $request->input('name'),
+                    'firstname' => $request->input('firstname'),
+                    'lastname' => $request->input('lastname'),
                     'email' => $request->input('email'),
                     'notelp' => $request->input('notelp'),
                     'level' => $request->input('level'),
