@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Pengaturan::create([
             'key' => 'logo',
-            'value' => '/assets/images/logo.png'
+            'value' => '/assets/images/logo/logo.png'
         ]);
         //Karyawan========================================================================
         Karyawan::create([
