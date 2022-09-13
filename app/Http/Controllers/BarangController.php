@@ -266,11 +266,11 @@ class BarangController extends Controller
                         $databarang->update([
                             'stok' => $databarang->stok - $jumlah[$i]
                         ]);
-                        return response()->json([
-                            'code' => 1,
-                            'message' => 'operasi barang keluar berhasil',
-                            'data' => $data
-                        ]);
+                        // return response()->json([
+                        //     'code' => 1,
+                        //     'message' => 'operasi barang keluar berhasil',
+                        //     'data' => $data
+                        // ]);
                     }
                 }else{
                     return response()->json([
