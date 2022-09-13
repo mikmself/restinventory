@@ -243,39 +243,42 @@ class BarangController extends Controller
                 'data' => []
             ]);
         }else{
+            $total = count($request->input('id_barang'));
             $jumlah = $request->input('jumlah');
             $idbarang = $request->input('id_barang');
-            $data = BarangKeluar::create([
-                'id_karyawan' => $request->input('id_karyawan'),
-                'id_barang' => $idbarang,
-                'jumlah' => $jumlah,
-                'tanggal_keluar' => $request->input('tanggal_keluar'),
-                'kegunaan' => $request->input('kegunaan')
-            ]);
-            if($data){
-                $databarang = Barang::whereId($idbarang)->first();
-                if($databarang->stok == 0){
+            for ($i=0; $i < $total; $i++) {
+                $data = BarangKeluar::create([
+                    'id_karyawan' => $request->input('id_karyawan'),
+                    'id_barang' => $idbarang[$i],
+                    'jumlah' => $jumlah[$i],
+                    'tanggal_keluar' => $request->input('tanggal_keluar'),
+                    'kegunaan' => $request->input('kegunaan')
+                ]);
+                if($data){
+                    $databarang = Barang::whereId($idbarang[$i])->first();
+                    if($databarang->stok == 0){
+                        return response()->json([
+                            'code' => 0,
+                            'message' => 'stok barang masih kosong!',
+                            'data' => []
+                        ]);
+                    }else{
+                        $databarang->update([
+                            'stok' => $databarang->stok - $jumlah[$i]
+                        ]);
+                        return response()->json([
+                            'code' => 1,
+                            'message' => 'operasi barang keluar berhasil',
+                            'data' => $data
+                        ]);
+                    }
+                }else{
                     return response()->json([
                         'code' => 0,
-                        'message' => 'stok barang masih kosong!',
+                        'message' => 'sesuatu terjadi, operasi barang keluar gagal',
                         'data' => []
                     ]);
-                }else{
-                    $databarang->update([
-                        'stok' => $databarang->stok - $jumlah
-                    ]);
-                    return response()->json([
-                        'code' => 0,
-                        'message' => 'operasi barang keluar berhasil',
-                        'data' => $data
-                    ]);
                 }
-            }else{
-                return response()->json([
-                    'code' => 0,
-                    'message' => 'sesuatu terjadi, operasi barang keluar gagal',
-                    'data' => []
-                ]);
             }
         }
     }
