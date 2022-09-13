@@ -41,6 +41,16 @@ class DatabaseSeeder extends Seeder
             'status' => 'guru',
             'unit_kerja' => 'Kesiswaan'
         ]);
+        Karyawan::create([
+            'nama' => 'Sugeng Priyatno',
+            'status' => 'guru',
+            'unit_kerja' => 'Kesiswaan'
+        ]);
+        Karyawan::create([
+            'nama' => 'Masriana',
+            'status' => 'guru',
+            'unit_kerja' => 'Fisika'
+        ]);
         //Kategori========================================================================
         Kategori::create([
             'nama_kategori' => 'Barang Modal'
@@ -54,15 +64,46 @@ class DatabaseSeeder extends Seeder
             'alamat' => 'Sumbang',
             'nohp' => '081327546471'
         ]);
+        Suplayer::create([
+            'nama' => 'PT Bakaran Project',
+            'alamat' => 'Grendeng',
+            'nohp' => '082847284738'
+        ]);
+        Suplayer::create([
+            'nama' => 'PT MIKM Company',
+            'alamat' => 'Pasir Kidul',
+            'nohp' => '081987384729'
+        ]);
         //Barang==========================================================================
         Barang::create([
             'id_kategori' => '1',
             'nama' => 'Kursi',
-            'satuan' => 'Buah',
+            'satuan' => 'Unit',
         ]);
+        Barang::create([
+            'id_kategori' => '1',
+            'nama' => 'Meja',
+            'satuan' => 'Unit',
+        ]);
+        Barang::create([
+            'id_kategori' => '1',
+            'nama' => 'Proyektor',
+            'satuan' => 'Unit',
+        ]);
+
         Barang::create([
             'id_kategori' => '2',
             'nama' => 'Penghapus',
+            'satuan' => 'Box',
+        ]);
+        Barang::create([
+            'id_kategori' => '2',
+            'nama' => 'Spidol',
+            'satuan' => 'Box',
+        ]);
+        Barang::create([
+            'id_kategori' => '2',
+            'nama' => 'Kapur',
             'satuan' => 'Box',
         ]);
         //User=======================================================================
