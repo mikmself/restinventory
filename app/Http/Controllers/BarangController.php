@@ -254,31 +254,31 @@ class BarangController extends Controller
                     'tanggal_keluar' => $request->input('tanggal_keluar'),
                     'kegunaan' => $request->input('kegunaan')
                 ]);
-            }
-            if($data){
-                $databarang = Barang::whereId($idbarang[$i])->first();
-                if($databarang->stok == 0){
+                if($data){
+                    $databarang = Barang::whereId($idbarang[$i])->first();
+                    if($databarang->stok == 0){
+                        return response()->json([
+                            'code' => 0,
+                            'message' => 'stok barang masih kosong!',
+                            'data' => []
+                        ]);
+                    }else{
+                        $databarang->update([
+                            'stok' => $databarang->stok - $jumlah[$i]
+                        ]);
+                        return response()->json([
+                            'code' => 1,
+                            'message' => 'operasi barang keluar berhasil',
+                            'data' => $data
+                        ]);
+                    }
+                }else{
                     return response()->json([
                         'code' => 0,
-                        'message' => 'stok barang masih kosong!',
+                        'message' => 'sesuatu terjadi, operasi barang keluar gagal',
                         'data' => []
                     ]);
-                }else{
-                    $databarang->update([
-                        'stok' => $databarang->stok - $jumlah[$i]
-                    ]);
-                    return response()->json([
-                        'code' => 1,
-                        'message' => 'operasi barang keluar berhasil',
-                        'data' => $data
-                    ]);
                 }
-            }else{
-                return response()->json([
-                    'code' => 0,
-                    'message' => 'sesuatu terjadi, operasi barang keluar gagal',
-                    'data' => []
-                ]);
             }
         }
     }
