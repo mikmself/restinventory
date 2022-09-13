@@ -246,6 +246,7 @@ class BarangController extends Controller
             $total = count($request->input('id_barang'));
             $jumlah = $request->input('jumlah');
             $idbarang = $request->input('id_barang');
+            $kumpulandata = [];
             for ($i=0; $i < $total; $i++) {
                 $data = BarangKeluar::create([
                     'id_karyawan' => $request->input('id_karyawan'),
@@ -256,6 +257,7 @@ class BarangController extends Controller
                 ]);
                 if($data){
                     $databarang = Barang::whereId($idbarang[$i])->first();
+                    array_push($kumpulandata,$data);
                     if($databarang->stok == 0){
                         return response()->json([
                             'code' => 0,
@@ -266,11 +268,6 @@ class BarangController extends Controller
                         $databarang->update([
                             'stok' => $databarang->stok - $jumlah[$i]
                         ]);
-                        // return response()->json([
-                        //     'code' => 1,
-                        //     'message' => 'operasi barang keluar berhasil',
-                        //     'data' => $data
-                        // ]);
                     }
                 }else{
                     return response()->json([
@@ -280,6 +277,11 @@ class BarangController extends Controller
                     ]);
                 }
             }
+            return response()->json([
+                'code' => 1,
+                'message' => 'operasi barang keluar berhasil',
+                'data' => $kumpulandata
+            ]);
         }
     }
     public function confirmBarangKeluar($id){
