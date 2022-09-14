@@ -162,8 +162,8 @@ class BarangController extends Controller
                     }
                 }else{
                     $explode = explode(".",$barangfisik->kode);
-                    $angkainfix = $explode[1];
-                    dd($angkainfix);
+                    $angkainfix = $explode[2];
+                    // dd($angkainfix);
                     if($data){
                         $databarangfisik = [];
                         for ($i=1; $i <= $jumlah; $i++) {
