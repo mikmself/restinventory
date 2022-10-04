@@ -349,7 +349,7 @@ class BarangController extends Controller
                     'stok' => $databarang->stok - $jumlah
                 ]);
                 return response()->json([
-                    'code' => 0,
+                    'code' => 1,
                     'message' => 'operasi barang modal keluar berhasil',
                     'data' => $databarangfisik
                 ]);
@@ -430,7 +430,7 @@ class BarangController extends Controller
                     'stok' => $databarang->stok - $jumlah
                 ]);
                 return response()->json([
-                    'code' => 0,
+                    'code' => 1,
                     'message' => 'operasi barang modal pinjam berhasil',
                     'data' => $databarangfisik
                 ]);

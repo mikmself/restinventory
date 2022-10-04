@@ -4,6 +4,13 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 $router->post('/auth/login', 'AuthController@login');
+$router->group(['prefix' => '/user/nonauth'], function () use ($router) {
+    $router->get('/indexbarang', 'HomeController@indexBarang');
+    $router->get('/indexbarangfisik', 'HomeController@indexBarangFisik');
+    $router->post('/barangkeluar', 'HomeController@barangKeluar');
+    $router->post('/barangmodalkeluar', 'HomeController@barangModalKeluar');
+    $router->post('/barangmodalpinjam', 'HomeController@barangModalPinjam');
+});
 
 $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router) {
     $router->get('/auth/cektoken', 'AuthController@cekToken');
