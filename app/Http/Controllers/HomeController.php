@@ -7,6 +7,8 @@ use App\Models\BarangFisik;
 use App\Models\BarangKeluar;
 use App\Models\BarangModalKeluar;
 use App\Models\BarangModalPinjam;
+use App\Models\Karyawan;
+use App\Models\Ruang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -28,7 +30,22 @@ class HomeController extends Controller
             'data' => $data
         ]);
     }
-
+    public function indexKaryawan(){
+        $data = Karyawan::get();
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua data',
+            'data' => $data,
+        ]);
+    }
+    public function indexRuang(){
+        $data = Ruang::get();
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua data',
+            'data' => $data,
+        ]);
+    }
     public function barangKeluar(Request $request){
         $validator = Validator::make($request->all(),[
             'id_karyawan' => 'required',
