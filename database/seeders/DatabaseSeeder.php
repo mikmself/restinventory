@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         //Pengaturan=====================================================================
         Pengaturan::create([
             'key' => 'prefix',
-            'value' => 'SMKN1'
+            'value' => 'BP'
         ]);
         Pengaturan::create([
             'key' => 'infix',
@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Pengaturan::create([
             'key' => 'suffix',
-            'value' => 'PURWOKERTO'
+            'value' => 'PWT'
         ]);
         Pengaturan::create([
             'key' => 'logo',
