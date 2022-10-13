@@ -475,6 +475,7 @@ class BarangController extends Controller
             ['tanggal_keluar',$tglkeluar],
             ['tanggal_kembali',$tglkembali]
         ])->get();
+        dd($barangpinjam);
         $databarangfisik = [];
         foreach ($barangpinjam as $data) {
             BarangFisik::whereId($data->id_barang_fisik)->update([
