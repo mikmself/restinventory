@@ -475,6 +475,7 @@ class BarangController extends Controller
             ['tanggal_keluar',$tglkeluar],
             ['tanggal_kembali',$tglkembali]
         ])->get();
+        dd($idbarang,$tglkeluar,$tglkembali);
         dd($barangpinjam);
         $databarangfisik = [];
         foreach ($barangpinjam as $data) {
