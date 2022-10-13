@@ -469,61 +469,46 @@ class BarangController extends Controller
             'data' => $data,
         ]);
     }
-    public function barangModalKembali(Request $request){
-        $validator = Validator::make($request->all(),[
-            'id_barang' => 'required',
-            'tanggal_keluar' => 'required',
-            'tanggal_kembali' => 'required'
+    public function barangModalKembali($idbarang,$tglkeluar,$tglkembali){
+        $barangpinjam = BarangModalPinjam::where([
+            ['id_barang',$idbarang],
+            ['tanggal_keluar',$tglkeluar],
+            ['tanggal_kembali',$tglkembali]
+        ])->get();
+        $databarangfisik = [];
+        foreach ($barangpinjam as $data) {
+            BarangFisik::whereId($data->id_barang_fisik)->update([
+                'status_pengambilan' => 0
+            ]);
+            BarangModalKembali::create([
+                'id_barang' => $idbarang,
+                'id_barang_fisik' => $data->id_barang_fisik,
+                'tanggal_kembali' => $tglkembali
+            ]);
+            $datastore = BarangFisik::whereId($data->id_barang_fisik)->first();
+            array_push($databarangfisik,$datastore);
+        }
+        $databarang = Barang::whereId($idbarang)->first();
+        $update = $databarang->update([
+            'stok' => $databarang->stok + count($barangpinjam)
         ]);
-        if($validator->fails()){
+        if($update){
             return response()->json([
-                'code' => 0,
-                'message' => $validator->errors(),
-                'data' => []
+                'code' => 1,
+                'message' => 'operasi barang modal kembali berhasil',
+                'data' => [
+                    'data_barang' => $databarang,
+                    'data_barang_fisik' => $databarangfisik
+                ]
             ]);
         }else{
-            $idbarang = $request->input('id_barang');
-            $tanggalkeluar = $request->input('tanggal_keluar');
-            $tanggalkembali = $request->input('tanggal_kembali');
-            $barangpinjam = BarangModalPinjam::where([
-                ['id_barang',$idbarang],
-                ['tanggal_keluar',$tanggalkeluar],
-                ['tanggal_kembali',$tanggalkembali]
-            ])->get();
-            $databarangfisik = [];
-            foreach ($barangpinjam as $data) {
-                BarangFisik::whereId($data->id_barang_fisik)->update([
-                    'status_pengambilan' => 0
-                ]);
-                BarangModalKembali::create([
-                    'id_barang' => $idbarang,
-                    'id_barang_fisik' => $data->id_barang_fisik,
-                    'tanggal_kembali' => $tanggalkembali
-                ]);
-                $datastore = BarangFisik::whereId($data->id_barang_fisik)->first();
-                array_push($databarangfisik,$datastore);
-            }
-            $databarang = Barang::whereId($idbarang)->first();
-            $update = $databarang->update([
-                'stok' => $databarang->stok + count($barangpinjam)
+            return response()->json([
+                'code' => 0,
+                'message' => 'sesuatu terjadi, operasi barnag modal kembali gagal',
+                'data' => []
             ]);
-            if($update){
-                return response()->json([
-                    'code' => 1,
-                    'message' => 'operasi barang modal kembali berhasil',
-                    'data' => [
-                        'data_barang' => $databarang,
-                        'data_barang_fisik' => $databarangfisik
-                    ]
-                ]);
-            }else{
-                return response()->json([
-                    'code' => 0,
-                    'message' => 'sesuatu terjadi, operasi barnag modal kembali gagal',
-                    'data' => []
-                ]);
-            }
         }
+
     }
     public function importexcel(Request $request)
     {
