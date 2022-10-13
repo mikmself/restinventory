@@ -469,30 +469,20 @@ class BarangController extends Controller
             'data' => $data,
         ]);
     }
-    public function barangModalKembali($idbarang,$tglkeluar,$tglkembali){
-        $barangpinjam = BarangModalPinjam::where([
-            ['id_barang',$idbarang],
-            ['tanggal_keluar',$tglkeluar],
-            ['tanggal_kembali',$tglkembali]
-        ])->get();
-        dd($idbarang,$tglkeluar,$tglkembali);
-        dd($barangpinjam);
-        $databarangfisik = [];
-        foreach ($barangpinjam as $data) {
-            BarangFisik::whereId($data->id_barang_fisik)->update([
-                'status_pengambilan' => 0
-            ]);
-            BarangModalKembali::create([
-                'id_barang' => $idbarang,
-                'id_barang_fisik' => $data->id_barang_fisik,
-                'tanggal_kembali' => $tglkembali
-            ]);
-            $datastore = BarangFisik::whereId($data->id_barang_fisik)->first();
-            array_push($databarangfisik,$datastore);
-        }
-        $databarang = Barang::whereId($idbarang)->first();
+    public function barangModalKembali($id){
+        $data = BarangModalPinjam::whereId($id)->first();
+        BarangFisik::whereId($data->id_barang_fisik)->update([
+            'status_pengambilan' => 0
+        ]);
+        BarangModalKembali::create([
+            'id_barang' => $data->id_barang,
+            'id_barang_fisik' => $data->id_barang_fisik,
+            'tanggal_kembali' => $data->tanggal_kembali
+        ]);
+        $databarangfisik = BarangFisik::whereId($data->id_barang_fisik)->first();
+        $databarang = Barang::whereId($data->id_barang)->first();
         $update = $databarang->update([
-            'stok' => $databarang->stok + count($barangpinjam)
+            'stok' => $databarang->stok + 1
         ]);
         if($update){
             return response()->json([
