@@ -30,6 +30,7 @@ class AuthController extends Controller
                 $firstname = $user->firstname;
                 $lastname = $user->lastname;
                 $email = $user->email;
+                $level = $user->level;
                 if (!$token = Auth::attempt($credentials)) {
                     return response()->json(['message' => 'Unauthorized'], 401);
                 } else {
@@ -37,7 +38,7 @@ class AuthController extends Controller
                         'token' => Str::random(60)
                     ]);
                     $acToken = $user->token;
-                    return $this->respondWithToken($token, $firstname, $lastname, $email, $acToken);
+                    return $this->respondWithToken($token, $firstname,$level ,$lastname, $email, $acToken);
                 }
             } else {
                 return response()->json([
