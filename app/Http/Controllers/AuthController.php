@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Karyawan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,8 @@ class AuthController extends Controller
                 $lastname = $user->lastname;
                 $nip = $user->nip;
                 $email = $user->email;
-                $unitkerja = $user->karyawan->unitkerja->nama;
+                $datakaryawan = Karyawan::where('id_user',$user->id)->first();
+                $unitkerja = $datakaryawan->unitkerja->nama;
                 if (!$token = Auth::attempt($credentials)) {
                     return response()->json(['message' => 'Unauthorized'], 401);
                 } else {
