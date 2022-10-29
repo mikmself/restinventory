@@ -13,7 +13,7 @@ $router->group(['prefix' => '/user/nonauth'], function () use ($router) {
     $router->post('/barangmodalkeluar', 'HomeController@barangModalKeluar');
     $router->post('/barangmodalpinjam', 'HomeController@barangModalPinjam');
 });
-$router->get('/auth/cektoken?token={token}', 'AuthController@cektoken');
+$router->get('/cektoken/token={token}', 'AuthController@cektoken');
 
 $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router) {
     $router->get('/indexdashboard', 'HomeController@indexDashboard');
