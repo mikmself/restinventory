@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('karyawan', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_user')->index()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_unitkerja')->index()->constrained('unit_kerja')->onUpdate('cascade')->onDelete('cascade');
             $table->string('nama');
-            $table->enum('status',['guru','karyawan']);
-            $table->string('unit_kerja');
             $table->timestamps();
         });
     }

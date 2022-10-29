@@ -8,10 +8,18 @@ class Karyawan extends Model
 {
     protected $table = "karyawan";
     protected $fillable = [
-        'nama',
-        'status',
-        'unit_kerja',
+        'id_user',
+        'id_unitkerja',
+        'nama'
     ];
+
+    // belongsTo
+    public function user(){
+        return $this->belongsTo(User::class,'id_user');
+    }
+    public function unitkerja(){
+        return $this->belongsTo(UnitKerja::class,'id_unitkerja');
+    }
 
     // hasMany
     public function barangkeluar(){

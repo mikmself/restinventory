@@ -23,6 +23,7 @@ class UserController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
             'email' => 'required',
+            'nip' => 'required',
             'notelp' => 'required',
             'level' => 'required',
             'password' => 'required',
@@ -38,6 +39,7 @@ class UserController extends Controller
                 'firstname' => $request->input('firstname'),
                 'lastname' => $request->input('lastname'),
                 'email' => $request->input('email'),
+                'nip' => $request->input('nip'),
                 'notelp' => $request->input('notelp'),
                 'level' => $request->input('level'),
                 'token' => Str::random(60),
@@ -79,6 +81,7 @@ class UserController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
             'email' => 'required',
+            'nip' => 'required',
             'notelp' => 'required',
             'level' => 'required',
         ]);
@@ -95,6 +98,7 @@ class UserController extends Controller
                     'firstname' => $request->input('firstname'),
                     'lastname' => $request->input('lastname'),
                     'email' => $request->input('email'),
+                    'nip' => $request->input('nip'),
                     'notelp' => $request->input('notelp'),
                     'level' => $request->input('level'),
                 ]);

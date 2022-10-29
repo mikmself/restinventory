@@ -14,7 +14,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|string',
+            'nip' => 'required|string',
             'password' => 'required|string',
         ]);
         if ($validator->fails()) {
@@ -24,11 +24,12 @@ class AuthController extends Controller
                 'data' => []
             ]);
         } else {
-            $credentials = $request->only(['email', 'password']);
-            $user = User::where('email', $request->email)->first();
+            $credentials = $request->only(['nip', 'password']);
+            $user = User::where('nip', $request->nip)->first();
             if (isset($user)) {
                 $firstname = $user->firstname;
                 $lastname = $user->lastname;
+                $nip = $user->nip;
                 $email = $user->email;
                 $level = $user->level;
                 if (!$token = Auth::attempt($credentials)) {
@@ -97,12 +98,5 @@ class AuthController extends Controller
                 ]);
             }
         }
-    }
-    public function cekToken(){
-        return response()->json([
-            'code' => 1,
-            'message' => 'lolos',
-            'data' => []
-        ]);
     }
 }

@@ -249,40 +249,40 @@ class BarangController extends Controller
             $idbarang = $request->input('id_barang');
             $kumpulandata = [];
             for ($i=0; $i < $total; $i++) {
-                $data = BarangKeluar::create([
-                    'id_karyawan' => $request->input('id_karyawan'),
-                    'id_barang' => $idbarang[$i],
-                    'jumlah' => $jumlah[$i],
-                    'tanggal_keluar' => $request->input('tanggal_keluar'),
-                    'kegunaan' => $request->input('kegunaan')
-                ]);
-                if($data){
-                    $databarang = Barang::whereId($idbarang[$i])->first();
-                    array_push($kumpulandata,$data);
-                    if($databarang->stok == 0){
-                        return response()->json([
-                            'code' => 0,
-                            'message' => 'stok barang masih kosong!',
-                            'data' => []
-                        ]);
-                    }else{
-                        $databarang->update([
-                            'stok' => $databarang->stok - $jumlah[$i]
-                        ]);
-                    }
-                }else{
+                $databarang = Barang::whereId($idbarang[$i])->first();
+                if($databarang->stok == 0){
                     return response()->json([
                         'code' => 0,
-                        'message' => 'sesuatu terjadi, operasi barang keluar gagal',
+                        'message' => 'stok barang masih kosong!',
                         'data' => []
+                    ]);
+                }else{
+                    $data = BarangKeluar::create([
+                        'id_karyawan' => $request->input('id_karyawan'),
+                        'id_barang' => $idbarang[$i],
+                        'jumlah' => $jumlah[$i],
+                        'tanggal_keluar' => $request->input('tanggal_keluar'),
+                        'kegunaan' => $request->input('kegunaan')
+                    ]);
+                    array_push($kumpulandata,$data);
+                    $databarang->update([
+                        'stok' => $databarang->stok - $jumlah[$i]
                     ]);
                 }
             }
-            return response()->json([
-                'code' => 1,
-                'message' => 'operasi barang keluar berhasil',
-                'data' => $kumpulandata
-            ]);
+            if(count($kumpulandata) > 0){
+                return response()->json([
+                    'code' => 1,
+                    'message' => 'operasi barang keluar berhasil',
+                    'data' => $kumpulandata
+                ]);
+            }else{
+                return response()->json([
+                    'code' => 0,
+                    'message' => 'sesuatu terjadi, operasi barnag keluar gagal',
+                    'data' => []
+                ]);
+            }
         }
     }
     public function confirmBarangKeluar($id){

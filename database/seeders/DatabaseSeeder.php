@@ -8,8 +8,8 @@ use App\Models\Kategori;
 use App\Models\Pengaturan;
 use App\Models\Ruang;
 use App\Models\Suplayer;
+use App\Models\UnitKerja;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -34,22 +34,6 @@ class DatabaseSeeder extends Seeder
         Pengaturan::create([
             'key' => 'logo',
             'value' => '/assets/images/logo/logo.png'
-        ]);
-        //Karyawan========================================================================
-        Karyawan::create([
-            'nama' => 'Yoga Willy Utomo',
-            'status' => 'guru',
-            'unit_kerja' => 'Kesiswaan'
-        ]);
-        Karyawan::create([
-            'nama' => 'Sugeng Priyatno',
-            'status' => 'guru',
-            'unit_kerja' => 'Kesiswaan'
-        ]);
-        Karyawan::create([
-            'nama' => 'Masriana',
-            'status' => 'guru',
-            'unit_kerja' => 'Fisika'
         ]);
         //Kategori========================================================================
         Kategori::create([
@@ -106,34 +90,31 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Kapur',
             'satuan' => 'Box',
         ]);
+        // Unit Kerja=======================================================================
+        UnitKerja::create([
+            'nama' => 'IT Support'
+        ]);
+
         //User=======================================================================
+        $iduser = Str::uuid();
         User::create([
+            'id' => $iduser,
             'firstname' => 'Muhamad Irga',
             'lastname' => 'Khoirul Mahfis',
             'email' => 'mikmself@gmail.com',
+            'nip' => '827559966454369898',
             'notelp' => '081327546471',
-            'level' => 'superadmin',
+            'level' => 'admin',
             'password' => Hash::make('admin123'),
             'token' => Str::random(60)
         ]);
-        User::create([
-            'firstname' => 'Yoga Willy',
-            'lastname' => 'Utomo',
-            'email' => 'yogawilly@gmail.com',
-            'notelp' => '081874263823',
-            'level' => 'superadmin',
-            'password' => Hash::make('admin123'),
-            'token' => Str::random(60)
+        //Karyawan ======================================================================
+        Karyawan::create([
+            'id_user' => $iduser,
+            'id_unitkerja' => '1',
+            'nama' => 'Muhamad Irga Khoirul Mahfis'
         ]);
-        User::create([
-            'firstname' => 'Raafi Gian',
-            'lastname' => 'Fauzi',
-            'email' => 'raafigian@gmail.com',
-            'notelp' => '081293094234',
-            'level' => 'superadmin',
-            'password' => Hash::make('admin123'),
-            'token' => Str::random(60)
-        ]);
+
         //Ruang======================================================================
         Ruang::create([
             'nama' => 'C.2.12'

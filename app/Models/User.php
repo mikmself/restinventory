@@ -16,9 +16,15 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     use Authenticatable, Authorizable, HasFactory;
 
     protected $fillable = [
-        'firstname', 'lastname', 'email', 'notelp', 'level', 'token', 'password'
+        'firstname', 
+        'lastname', 
+        'email', 
+        'nip',
+        'notelp', 
+        'level', 
+        'token', 
+        'password'
     ];
-
     protected $hidden = [
         'password',
     ];
@@ -31,5 +37,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function karyawan(){
+        return $this->hasMany(Karyawan::class,'id_karyawan');
     }
 }

@@ -15,7 +15,7 @@ $router->group(['prefix' => '/user/nonauth'], function () use ($router) {
 });
 
 $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router) {
-    $router->get('/auth/cektoken', 'AuthController@cekToken');
+    $router->get('/indexdashboard', 'HomeController@indexDashboard');
     $router->group(['prefix' => 'barang'], function () use ($router) {
         $router->get('/','BarangController@index');
         $router->get('/fisik','BarangController@indexBarangFisik');
@@ -51,6 +51,7 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->get('/show/{id}','KaryawanController@show');
         $router->post('/update/{id}','KaryawanController@update');
         $router->delete('/destroy/{id}','KaryawanController@destroy');
+        $router->post('/importexcel','KaryawanController@importexcel');
     });
     $router->group(['prefix' => 'kategori'], function () use ($router) {
         $router->get('/', 'KategoriController@index');
@@ -58,6 +59,13 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->get('/show/{id}','KategoriController@show');
         $router->post('/update/{id}','KategoriController@update');
         $router->delete('/destroy/{id}','KategoriController@destroy');
+    });
+    $router->group(['prefix' => 'unitkerja'], function () use ($router) {
+        $router->get('/', 'UnitKerjaController@index');
+        $router->post('/store','UnitKerjaController@store');
+        $router->get('/show/{id}','UnitKerjaController@show');
+        $router->post('/update/{id}','UnitKerjaController@update');
+        $router->delete('/destroy/{id}','UnitKerjaController@destroy');
     });
     $router->group(['prefix' => 'pengaturan'], function () use ($router) {
         $router->get('/', 'PengaturanController@index');

@@ -9,7 +9,9 @@ use App\Models\BarangModalKeluar;
 use App\Models\BarangModalPinjam;
 use App\Models\Karyawan;
 use App\Models\Ruang;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
@@ -207,5 +209,32 @@ class HomeController extends Controller
                 ]);
             }
         }
+    }
+    public function indexDashboard(){
+        $month = Carbon::now()->format('m');
+        $year = Carbon::now()->format('Y');
+
+        $barangkeluarbulanan = DB::table('barang_keluar')->whereMonth('created_at',$month)->get();;
+        $barangkeluartahunan = DB::table('barang_keluar')->whereYear('created_at',$year)->get();;
+
+        $barangmodalkeluarbulanan = DB::table('barang_modal_keluar')->whereMonth('created_at',$month)->get();;
+        $barangmodalkeluartahunan = DB::table('barang_modal_keluar')->whereYear('created_at',$year)->get();;
+
+        $barangmodalpinjambulanan = DB::table('barang_modal_pinjam')->whereMonth('created_at',$month)->get();;
+        $barangmodalpinjamtahunan = DB::table('barang_modal_pinjam')->whereYear('created_at',$year)->get();;
+
+        $data = [
+            'barang_keluar_bulanan' => count($barangkeluarbulanan),
+            'barang_keluar_tahunan' => count($barangkeluartahunan),
+            'barang_modal_keluar_bulanan' => count($barangmodalkeluarbulanan),
+            'barang_modal_keluar_tahunan' => count($barangmodalkeluartahunan),
+            'barang_modal_pinjam_bulanan' => count($barangmodalpinjambulanan),
+            'barang_modal_pinjam_tahunan' => count($barangmodalpinjamtahunan),
+        ];
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua laporan data',
+            'data' => $data
+        ]);
     }
 }
