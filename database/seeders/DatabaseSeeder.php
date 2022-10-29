@@ -96,9 +96,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         //User=======================================================================
-        $iduser = Str::uuid();
         User::create([
-            'id' => $iduser,
             'firstname' => 'Muhamad Irga',
             'lastname' => 'Khoirul Mahfis',
             'email' => 'mikmself@gmail.com',
@@ -110,7 +108,7 @@ class DatabaseSeeder extends Seeder
         ]);
         //Karyawan ======================================================================
         Karyawan::create([
-            'id_user' => $iduser,
+            'id_user' => 1,
             'id_unitkerja' => '1',
             'nama' => 'Muhamad Irga Khoirul Mahfis'
         ]);
