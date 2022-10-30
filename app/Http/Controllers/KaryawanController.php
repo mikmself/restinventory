@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 class KaryawanController extends Controller
 {
     public function index(){
-        $data = Karyawan::get();
+        $data = Karyawan::with(['unitkerja','user'])->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
