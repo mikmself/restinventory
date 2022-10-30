@@ -102,19 +102,11 @@ class AuthController extends Controller
         }
     }
     public function cektoken($token){
-        $data = User::where('token',$token)->first();
-        if(isset($data)){
-            return response()->json([
-                'code' => 1,
-                'message' => 'lolos',
-                'data' => []
-            ]);
-        }else{
-            return response()->json([
-                'code' => 0,
-                'message' => 'data tidak ditemukan!',
-                'data' => []
-            ]);
-        }
+        return response()->json([
+            'code' => 1,
+            'message' => 'lolos',
+            'data' => []
+        ]);
+        
     }
 }

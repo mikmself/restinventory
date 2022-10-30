@@ -70,6 +70,8 @@ class KaryawanController extends Controller
     }
     public function update(Request $request,$id){
         $validator = Validator::make($request->all(),[
+            'id_user' => 'required',
+            'id_unitkerja' => 'required',
             'nama' => 'required',
         ]);
         if($validator->fails()){

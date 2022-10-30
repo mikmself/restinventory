@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('lastname')->nullable();
             $table->string('email')->unique();
-            $table->string('nip')->unique();
+            $table->string('nip')->unique()->nullable();
             $table->string('notelp')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('level')->default('user');
