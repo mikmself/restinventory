@@ -101,7 +101,7 @@ class AuthController extends Controller
             }
         }
     }
-    public function cektoken($token){
+    public function cektoken(){
         return response()->json([
             'code' => 1,
             'message' => 'lolos',
