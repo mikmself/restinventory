@@ -25,7 +25,6 @@ class UserController extends Controller
             'email' => 'required',
             'nip' => 'required',
             'notelp' => 'required',
-            'level' => 'required',
             'password' => 'required',
         ]);
         if($validator->fails()){
@@ -83,7 +82,6 @@ class UserController extends Controller
             'email' => 'required',
             'nip' => 'required',
             'notelp' => 'required',
-            'level' => 'required',
         ]);
         if($validator->fails()){
             return response()->json([
