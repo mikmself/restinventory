@@ -40,7 +40,6 @@ class UserController extends Controller
                 'email' => $request->input('email'),
                 'nip' => $request->input('nip'),
                 'notelp' => $request->input('notelp'),
-                'level' => $request->input('level'),
                 'token' => Str::random(60),
                 'password' => Hash::make($request->input('password')),
             ]);
@@ -98,7 +97,6 @@ class UserController extends Controller
                     'email' => $request->input('email'),
                     'nip' => $request->input('nip'),
                     'notelp' => $request->input('notelp'),
-                    'level' => $request->input('level'),
                 ]);
                 if($update){
                     return response()->json([
