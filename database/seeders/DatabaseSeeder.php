@@ -100,7 +100,7 @@ class DatabaseSeeder extends Seeder
             'firstname' => 'Muhamad Irga',
             'lastname' => 'Khoirul Mahfis',
             'email' => 'mikmself@gmail.com',
-            'nip' => '',
+            'nip' => '827559966454369898',
             'notelp' => '081327546471',
             'level' => 'admin',
             'password' => Hash::make('admin123'),
