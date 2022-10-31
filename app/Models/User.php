@@ -38,6 +38,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return [];
     }
+    // belongsTo
+    public function unitkerja(){
+        return $this->belongsTo(UnitKerja::class,'id_unitkerja');
+    }
 
     // hasMany
     public function barangkeluar(){

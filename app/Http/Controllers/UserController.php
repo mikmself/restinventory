@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     public function index(){
-        $data = User::get();
+        $data = User::with('unitkerja')->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',

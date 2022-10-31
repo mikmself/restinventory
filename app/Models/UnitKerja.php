@@ -11,7 +11,7 @@ class UnitKerja extends Model
         'nama'
     ];
 
-    public function karyawan(){
-        return $this->hasMany(Karyawan::class,'id_unitkerja');
+    public function user(){
+        return $this->hasMany(User::class,'id_unitkerja');
     }
 }
