@@ -47,14 +47,6 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->post('/update/{id}','BarangController@update');
         $router->delete('/destroy/{id}','BarangController@destroy');
     });
-    $router->group(['prefix' => 'karyawan'], function () use ($router) {
-        $router->get('/', 'KaryawanController@index');
-        $router->post('/store','KaryawanController@store');
-        $router->get('/show/{id}','KaryawanController@show');
-        $router->post('/update/{id}','KaryawanController@update');
-        $router->delete('/destroy/{id}','KaryawanController@destroy');
-        $router->post('/importexcel','KaryawanController@importexcel');
-    });
     $router->group(['prefix' => 'kategori'], function () use ($router) {
         $router->get('/', 'KategoriController@index');
         $router->post('/store','KategoriController@store');

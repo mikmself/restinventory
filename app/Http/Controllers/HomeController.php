@@ -7,8 +7,8 @@ use App\Models\BarangFisik;
 use App\Models\BarangKeluar;
 use App\Models\BarangModalKeluar;
 use App\Models\BarangModalPinjam;
-use App\Models\Karyawan;
 use App\Models\Ruang;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -33,7 +33,7 @@ class HomeController extends Controller
         ]);
     }
     public function indexKaryawan(){
-        $data = Karyawan::get();
+        $data = User::get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',

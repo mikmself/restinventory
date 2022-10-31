@@ -8,7 +8,7 @@ class BarangModalPinjam extends Model
 {
     protected $table = "barang_modal_pinjam";
     protected $fillable = [
-        'id_karyawan',
+        'id_user',
         'id_barang',
         'id_barang_fisik',
         'id_ruang',
@@ -19,8 +19,8 @@ class BarangModalPinjam extends Model
     ];
 
     // belongsTo
-    public function karyawan(){
-        return $this->belongsTo(Karyawan::class,'id_karyawan');
+    public function user(){
+        return $this->belongsTo(User::class,'id_user');
     }
     public function barang(){
         return $this->belongsTo(Barang::class,'id_barang');

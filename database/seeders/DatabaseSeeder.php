@@ -101,16 +101,11 @@ class DatabaseSeeder extends Seeder
             'lastname' => 'Khoirul Mahfis',
             'email' => 'mikmself@gmail.com',
             'nip' => '827559966454369898',
+            'id_unitkerja' => '1',
             'notelp' => '081327546471',
             'level' => 'admin',
             'password' => Hash::make('admin123'),
             'token' => Str::random(60)
-        ]);
-        //Karyawan ======================================================================
-        Karyawan::create([
-            'id_user' => 1,
-            'id_unitkerja' => '1',
-            'nama' => 'Muhamad Irga Khoirul Mahfis'
         ]);
 
         //Ruang======================================================================

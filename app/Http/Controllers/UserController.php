@@ -139,4 +139,29 @@ class UserController extends Controller
                 ]);
             }
     }
+    public function importexcel(Request $request)
+    {
+        $count = count($request->rows);
+        $count -= 1;
+        $arraydatauser = [];
+        for ($x = 0; $x <= $count; $x++) {
+            $row = $request->rows[$x];
+            $datauser = User::create([
+                'firstname' => $row['firstname'],
+                'lastname' => $row['lastname'],
+                'email' => $row['email'],
+                'nip' => $row['nip'],
+                'id_unitkerja' => $row['id_unitkerja'],
+                'notelp' => $row['notelp'],
+                'token' => Str::random(60),
+                'password' => Hash::make($row['password'])
+            ]);
+            array_push($arraydatauser,$datauser);
+        }
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua data telah berhasil dibuat',
+            'data' => $arraydatauser
+        ]);
+    }
 }

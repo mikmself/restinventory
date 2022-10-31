@@ -222,7 +222,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangKeluar(){
-        $data = BarangKeluar::with(['barang','karyawan'])->get();
+        $data = BarangKeluar::with(['barang','user'])->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -231,7 +231,7 @@ class BarangController extends Controller
     }
     public function barangKeluar(Request $request){
         $validator = Validator::make($request->all(),[
-            'id_karyawan' => 'required',
+            'id_user' => 'required',
             'id_barang' => 'required',
             'jumlah' => 'required',
             'tanggal_keluar' => 'required',
@@ -258,7 +258,7 @@ class BarangController extends Controller
                     ]);
                 }else{
                     $data = BarangKeluar::create([
-                        'id_karyawan' => $request->input('id_karyawan'),
+                        'id_user' => $request->input('id_user'),
                         'id_barang' => $idbarang[$i],
                         'jumlah' => $jumlah[$i],
                         'tanggal_keluar' => $request->input('tanggal_keluar'),
@@ -304,7 +304,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangModalKeluar(){
-        $data = BarangModalKeluar::with(['barang','karyawan','barangfisik','ruang'])->get();
+        $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -313,7 +313,7 @@ class BarangController extends Controller
     }
     public function barangModalKeluar(Request $request){
         $validator = Validator::make($request->all(),[
-            'id_karyawan' => 'required',
+            'id_user' => 'required',
             'id_barang' => 'required',
             'id_barang_fisik' => 'required',
             'id_ruang' => 'required',
@@ -332,7 +332,7 @@ class BarangController extends Controller
             $databarangfisik = [];
             for ($i=0; $i < count($idbarangfisik); $i++) {
                 $data = BarangModalKeluar::create([
-                    'id_karyawan' => $request->input('id_karyawan'),
+                    'id_user' => $request->input('id_user'),
                     'id_barang' => $idbarang,
                     'id_barang_fisik' => $idbarangfisik[$i],
                     'id_ruang' => $request->input('id_ruang'),
@@ -381,7 +381,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangModalPinjam(){
-        $data = BarangModalPinjam::with(['barang','karyawan','barangfisik','ruang'])->get();
+        $data = BarangModalPinjam::with(['barang','user','barangfisik','ruang'])->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -390,7 +390,7 @@ class BarangController extends Controller
     }
     public function barangModalPinjam(Request $request){
         $validator = Validator::make($request->all(),[
-            'id_karyawan' => 'required',
+            'id_user' => 'required',
             'id_barang' => 'required',
             'id_barang_fisik' => 'required',
             'tanggal_keluar' => 'required',
@@ -411,7 +411,7 @@ class BarangController extends Controller
             $databarangfisik = [];
             for ($i=0; $i < count($idbarangfisik); $i++) {
                 $data = BarangModalPinjam::create([
-                    'id_karyawan' => $request->input('id_karyawan'),
+                    'id_user' => $request->input('id_user'),
                     'id_barang' => $idbarang,
                     'id_barang_fisik' => $idbarangfisik[$i],
                     'id_ruang' => $request->input('id_ruang'),
