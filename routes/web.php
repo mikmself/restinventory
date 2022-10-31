@@ -88,5 +88,7 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->get('/show/{id}','UserController@show');
         $router->post('/update/{id}','UserController@update');
         $router->delete('/destroy/{id}','UserController@destroy');
+        $router->post('/importexcel','UserController@importexcel');
+
     });
 });

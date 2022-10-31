@@ -150,8 +150,8 @@ class UserController extends Controller
                 'firstname' => $row['firstname'],
                 'lastname' => $row['lastname'],
                 'email' => $row['email'],
-                'nip' => $row['nip'],
                 'id_unitkerja' => $row['id_unitkerja'],
+                'nip' => $row['nip'],
                 'notelp' => $row['notelp'],
                 'token' => Str::random(60),
                 'password' => Hash::make($row['password'])

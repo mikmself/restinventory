@@ -19,6 +19,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'firstname', 
         'lastname', 
         'email', 
+        'id_unitkerja',
         'nip',
         'notelp', 
         'level', 
