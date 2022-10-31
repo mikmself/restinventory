@@ -32,8 +32,7 @@ class AuthController extends Controller
                 $lastname = $user->lastname;
                 $nip = $user->nip;
                 $email = $user->email;
-                $datakaryawan = Karyawan::where('id_user',$user->id)->first();
-                $unitkerja = $datakaryawan->unitkerja->nama;
+                $unitkerja = $user->unitkerja->nama;
                 if (!$token = Auth::attempt($credentials)) {
                     return response()->json(['message' => 'Unauthorized'], 401);
                 } else {
