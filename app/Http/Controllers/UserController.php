@@ -23,6 +23,7 @@ class UserController extends Controller
             'firstname' => 'required',
             'email' => 'required',
             'password' => 'required',
+            'id_unitkerja' => 'required',
         ]);
         if($validator->fails()){
             return response()->json([
@@ -35,6 +36,7 @@ class UserController extends Controller
                 'firstname' => $request->input('firstname'),
                 'lastname' => $request->input('lastname'),
                 'email' => $request->input('email'),
+                'id_unitkerja' => $request->input('id_unitkerja'),
                 'nip' => $request->input('nip'),
                 'notelp' => $request->input('notelp'),
                 'token' => Str::random(60),
@@ -75,6 +77,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(),[
             'firstname' => 'required',
             'email' => 'required',
+            'id_unitkerja' => 'required',
         ]);
         if($validator->fails()){
             return response()->json([
@@ -89,6 +92,7 @@ class UserController extends Controller
                     'firstname' => $request->input('firstname'),
                     'lastname' => $request->input('lastname'),
                     'email' => $request->input('email'),
+                    'id_unitkerja' => $request->input('id_unitkerja'),
                     'nip' => $request->input('nip'),
                     'notelp' => $request->input('notelp'),
                 ]);
