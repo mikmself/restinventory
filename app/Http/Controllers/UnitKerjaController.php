@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class UnitKerjaController extends Controller
 {
     public function index(){
-        $data = UnitKerja::get();
+        $data = UnitKerja::paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
