@@ -75,7 +75,10 @@ class UserController extends Controller
     }
     public function search(Request $request){
         $key = $request->input('key');
-        $data = User::with('unitkerja')->where('firstname','LIKE','%' . $key . '%')->orWhere(['lastname','LIKE','%' . $key . '%'])->paginate(20);
+        $data = User::with('unitkerja')->where(function($query){
+                $query->where('firstname','LIKE','%' . $this->key . '%')
+                ->orWhere('lastname','LIKE','%' . $this->key . '%');
+            })->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
