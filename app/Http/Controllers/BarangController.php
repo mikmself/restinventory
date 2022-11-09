@@ -81,7 +81,7 @@ class BarangController extends Controller
     }
     public function search(Request $request){
         $key = $request->input('key');
-        $data = Barang::with(['barang','suplayer','kategori'])->where('nama','LIKE','%' . $key . '%')->paginate(20);
+        $data = Barang::with('kategori')->where('nama','LIKE','%' . $key . '%')->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
