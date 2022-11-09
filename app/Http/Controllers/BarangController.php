@@ -79,6 +79,82 @@ class BarangController extends Controller
             }
         }
     }
+    public function search(Request $request){
+        $key = $request->input('key');
+        $data = Barang::where('nama','LIKE','%' . $key . '%')->paginate(20);
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua data',
+            'data' => $data,
+        ]);
+    }
+    public function update(Request $request,$id){
+        $validator = Validator::make($request->all(),[
+            'id_kategori' => 'required',
+            'nama' => 'required',
+            'satuan' => 'required',
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                'code' => 0,
+                'message' => $validator->errors(),
+                'data' => []
+            ]);
+        }else{
+            $barang = Barang::whereId($id)->first();
+            if(isset($barang)){
+                $update = $barang->update([
+                    'id_kategori' => $request->input('id_kategori'),
+                    'nama' => $request->input('nama'),
+                    'satuan' => $request->input('satuan'),
+                ]);
+                if($update){
+                    return response()->json([
+                        'code' => 1,
+                        'message' => 'data berhasil diupdate',
+                        'data' => $barang
+                    ]);
+                }else{
+                    return response()->json([
+                        'code' => 0,
+                        'message' => 'data gagal diupdate',
+                        'data' => []
+                    ]);
+                }
+            }else{
+                return response()->json([
+                    'code' => 0,
+                    'message' => 'data tidak ditemukan',
+                    'data' => []
+                ]);
+            }
+        }
+    }
+    public function destroy($id){
+        $barang = Barang::whereId($id)->first();
+        if(isset($barang)){
+            $delete = $barang->delete();
+            if($delete){
+                return response()->json([
+                    'code' => 1,
+                    'message' => 'data berhasil dihapus',
+                    'data' => $barang
+                ]);
+            }else{
+                return response()->json([
+                    'code' => 0,
+                    'message' => 'data gagal dihapus',
+                    'data' => []
+                ]);
+            }
+        }else{
+                return response()->json([
+                    'code' => 0,
+                    'message' => 'data tidak ditemukan',
+                    'data' => []
+                ]);
+            }
+    }
     public function indexBarangMasuk(){
         $data = BarangMasuk::with(['barang','suplayer','kategori'])->paginate(20);
         return response()->json([
@@ -537,72 +613,5 @@ class BarangController extends Controller
                 'data' => []
             ]);
         }
-    }
-    public function update(Request $request,$id){
-        $validator = Validator::make($request->all(),[
-            'id_kategori' => 'required',
-            'nama' => 'required',
-            'satuan' => 'required',
-        ]);
-        if($validator->fails()){
-            return response()->json([
-                'code' => 0,
-                'message' => $validator->errors(),
-                'data' => []
-            ]);
-        }else{
-            $barang = Barang::whereId($id)->first();
-            if(isset($barang)){
-                $update = $barang->update([
-                    'id_kategori' => $request->input('id_kategori'),
-                    'nama' => $request->input('nama'),
-                    'satuan' => $request->input('satuan'),
-                ]);
-                if($update){
-                    return response()->json([
-                        'code' => 1,
-                        'message' => 'data berhasil diupdate',
-                        'data' => $barang
-                    ]);
-                }else{
-                    return response()->json([
-                        'code' => 0,
-                        'message' => 'data gagal diupdate',
-                        'data' => []
-                    ]);
-                }
-            }else{
-                return response()->json([
-                    'code' => 0,
-                    'message' => 'data tidak ditemukan',
-                    'data' => []
-                ]);
-            }
-        }
-    }
-    public function destroy($id){
-        $barang = Barang::whereId($id)->first();
-        if(isset($barang)){
-            $delete = $barang->delete();
-            if($delete){
-                return response()->json([
-                    'code' => 1,
-                    'message' => 'data berhasil dihapus',
-                    'data' => $barang
-                ]);
-            }else{
-                return response()->json([
-                    'code' => 0,
-                    'message' => 'data gagal dihapus',
-                    'data' => []
-                ]);
-            }
-        }else{
-                return response()->json([
-                    'code' => 0,
-                    'message' => 'data tidak ditemukan',
-                    'data' => []
-                ]);
-            }
     }
 }

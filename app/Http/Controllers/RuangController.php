@@ -61,6 +61,15 @@ class RuangController extends Controller
             ]);
         }
     }
+    public function search(Request $request){
+        $key = $request->input('key');
+        $data = Ruang::where('nama','LIKE','%' . $key . '%')->paginate(20);
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua data',
+            'data' => $data,
+        ]);
+    }
     public function update(Request $request,$id){
         $validator = Validator::make($request->all(),[
             'nama' => 'required'

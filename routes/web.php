@@ -22,6 +22,7 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->get('/','BarangController@index');
         $router->get('/fisik','BarangController@indexBarangFisik');
         $router->get('/indexconfrim','BarangController@indexConfrim');
+        $router->post('/search','BarangController@search');
 
         $router->get('/indexbarangmasuk','BarangController@indexBarangMasuk');
         $router->post('/barangmasuk','BarangController@barangMasuk');
@@ -51,6 +52,7 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->get('/', 'KategoriController@index');
         $router->post('/store','KategoriController@store');
         $router->get('/show/{id}','KategoriController@show');
+        $router->post('/search','KategoriController@search');
         $router->post('/update/{id}','KategoriController@update');
         $router->delete('/destroy/{id}','KategoriController@destroy');
     });
@@ -58,6 +60,7 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->get('/', 'UnitKerjaController@index');
         $router->post('/store','UnitKerjaController@store');
         $router->get('/show/{id}','UnitKerjaController@show');
+        $router->post('/search','UnitKerjaController@search');
         $router->post('/update/{id}','UnitKerjaController@update');
         $router->delete('/destroy/{id}','UnitKerjaController@destroy');
     });
@@ -65,6 +68,7 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->get('/', 'PengaturanController@index');
         $router->post('/store','PengaturanController@store');
         $router->get('/show/{id}','PengaturanController@show');
+        $router->post('/search','PengaturanController@search');
         $router->post('/update/{id}','PengaturanController@update');
         $router->delete('/destroy/{id}','PengaturanController@destroy');
     });
@@ -72,6 +76,7 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->get('/', 'RuangController@index');
         $router->post('/store','RuangController@store');
         $router->get('/show/{id}','RuangController@show');
+        $router->post('/search','RuangController@search');
         $router->post('/update/{id}','RuangController@update');
         $router->delete('/destroy/{id}','RuangController@destroy');
     });
@@ -79,6 +84,7 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->get('/', 'SuplayerController@index');
         $router->post('/store','SuplayerController@store');
         $router->get('/show/{id}','SuplayerController@show');
+        $router->post('/search','SuplayerController@search');
         $router->post('/update/{id}','SuplayerController@update');
         $router->delete('/destroy/{id}','SuplayerController@destroy');
     });
@@ -86,6 +92,7 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->get('/', 'UserController@index');
         $router->post('/store','UserController@store');
         $router->get('/show/{id}','UserController@show');
+        $router->post('/search','UserController@search');
         $router->post('/update/{id}','UserController@update');
         $router->delete('/destroy/{id}','UserController@destroy');
         $router->post('/importexcel','UserController@importexcel');
