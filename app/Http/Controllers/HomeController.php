@@ -214,8 +214,16 @@ class HomeController extends Controller
         $month = Carbon::now()->format('m');
         $year = Carbon::now()->format('Y');
 
-        $barangkeluarbulanan = DB::table('barang_keluar')->whereMonth('created_at',$month)->get();;
-        $barangkeluartahunan = DB::table('barang_keluar')->whereYear('created_at',$year)->get();;
+        $jumlahbulanan = 0;
+        $jumlahtahunan = 0;
+        $barangkeluarbulanan = BarangKeluar::whereMonth('created_at',$month)->get();;
+        $barangkeluartahunan = BarangKeluar::whereYear('created_at',$year)->get();;
+        foreach ($barangkeluarbulanan as $bulanan) {
+            $jumlahbulanan += $bulanan->jumlah;
+        }
+        foreach ($barangkeluartahunan as $tahunan) {
+            $jumlahtahunan += $tahunan->jumlah;
+        }
 
         $barangmodalkeluarbulanan = DB::table('barang_modal_keluar')->whereMonth('created_at',$month)->get();;
         $barangmodalkeluartahunan = DB::table('barang_modal_keluar')->whereYear('created_at',$year)->get();;
@@ -224,8 +232,8 @@ class HomeController extends Controller
         $barangmodalpinjamtahunan = DB::table('barang_modal_pinjam')->whereYear('created_at',$year)->get();;
 
         $data = [
-            'barang_keluar_bulanan' => count($barangkeluarbulanan),
-            'barang_keluar_tahunan' => count($barangkeluartahunan),
+            'barang_keluar_bulanan' => $jumlahbulanan,
+            'barang_keluar_tahunan' => $jumlahtahunan,
             'barang_modal_keluar_bulanan' => count($barangmodalkeluarbulanan),
             'barang_modal_keluar_tahunan' => count($barangmodalkeluartahunan),
             'barang_modal_pinjam_bulanan' => count($barangmodalpinjambulanan),
