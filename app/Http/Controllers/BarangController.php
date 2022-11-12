@@ -563,7 +563,7 @@ class BarangController extends Controller
         if($update){
             return response()->json([
                 'code' => 1,
-                'message' => 'operasi barang modal kembali berhasil',
+                'message' => 'barang ' . $databarangfisik->kode . " telah berhasil dikembalikan",
                 'data' => [
                     'data_barang' => $databarang,
                     'data_barang_fisik' => $databarangfisik
