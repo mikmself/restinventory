@@ -67,41 +67,43 @@ class HomeController extends Controller
             $jumlah = $request->input('jumlah');
             $idbarang = $request->input('id_barang');
             $kumpulandata = [];
+            $totaljumlah = 0;
             for ($i=0; $i < $total; $i++) {
-                $data = BarangKeluar::create([
-                    'id_user' => $request->input('id_user'),
-                    'id_barang' => $idbarang[$i],
-                    'jumlah' => $jumlah[$i],
-                    'tanggal_keluar' => $request->input('tanggal_keluar'),
-                    'kegunaan' => $request->input('kegunaan')
-                ]);
-                if($data){
-                    $databarang = Barang::whereId($idbarang[$i])->first();
-                    array_push($kumpulandata,$data);
-                    if($databarang->stok == 0){
-                        return response()->json([
-                            'code' => 0,
-                            'message' => 'stok barang masih kosong!',
-                            'data' => []
-                        ]);
-                    }else{
-                        $databarang->update([
-                            'stok' => $databarang->stok - $jumlah[$i]
-                        ]);
-                    }
-                }else{
+                $databarang = Barang::whereId($idbarang[$i])->first();
+                if($databarang->stok == 0){
                     return response()->json([
                         'code' => 0,
-                        'message' => 'sesuatu terjadi, operasi barang keluar gagal',
+                        'message' => 'stok barang masih kosong!',
                         'data' => []
                     ]);
+                }else{
+                    $data = BarangKeluar::create([
+                        'id_user' => $request->input('id_user'),
+                        'id_barang' => $idbarang[$i],
+                        'jumlah' => $jumlah[$i],
+                        'tanggal_keluar' => $request->input('tanggal_keluar'),
+                        'kegunaan' => $request->input('kegunaan')
+                    ]);
+                    array_push($kumpulandata,$data);
+                    $databarang->update([
+                        'stok' => $databarang->stok - $jumlah[$i]
+                    ]);
+                    $totaljumlah += $jumlah[$i];
                 }
             }
-            return response()->json([
-                'code' => 1,
-                'message' => 'operasi barang keluar berhasil',
-                'data' => $kumpulandata
-            ]);
+            if(count($kumpulandata) > 0){
+                return response()->json([
+                    'code' => 1,
+                    'message' => 'operasi barang keluar ' . $totaljumlah . " unit berhasil",
+                    'data' => $kumpulandata
+                ]);
+            }else{
+                return response()->json([
+                    'code' => 0,
+                    'message' => 'sesuatu terjadi, operasi barang keluar gagal',
+                    'data' => []
+                ]);
+            }
         }
     }
     public function barangModalKeluar(Request $request){
@@ -143,7 +145,7 @@ class HomeController extends Controller
                 ]);
                 return response()->json([
                     'code' => 1,
-                    'message' => 'operasi barang modal keluar berhasil',
+                    'message' => 'operasi barang modal keluar ' . $jumlah . " unit " . $databarang->nama . " berhasil",
                     'data' => $databarangfisik
                 ]);
             }else{
@@ -198,7 +200,7 @@ class HomeController extends Controller
                 ]);
                 return response()->json([
                     'code' => 1,
-                    'message' => 'operasi barang modal pinjam berhasil',
+                    'message' => 'operasi barang modal pinjam ' . $jumlah . " unit " . $databarang->nama . " berhasil",
                     'data' => $databarangfisik
                 ]);
             }else{
