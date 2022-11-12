@@ -324,6 +324,7 @@ class BarangController extends Controller
             $jumlah = $request->input('jumlah');
             $idbarang = $request->input('id_barang');
             $kumpulandata = [];
+            $totaljumlah = 0;
             for ($i=0; $i < $total; $i++) {
                 $databarang = Barang::whereId($idbarang[$i])->first();
                 if($databarang->stok == 0){
@@ -344,18 +345,19 @@ class BarangController extends Controller
                     $databarang->update([
                         'stok' => $databarang->stok - $jumlah[$i]
                     ]);
+                    $totaljumlah += $jumlah[$i];
                 }
             }
             if(count($kumpulandata) > 0){
                 return response()->json([
                     'code' => 1,
-                    'message' => 'operasi barang keluar berhasil',
+                    'message' => 'operasi barang keluar ' . $totaljumlah . " unit berhasil",
                     'data' => $kumpulandata
                 ]);
             }else{
                 return response()->json([
                     'code' => 0,
-                    'message' => 'sesuatu terjadi, operasi barnag keluar gagal',
+                    'message' => 'sesuatu terjadi, operasi barang keluar gagal',
                     'data' => []
                 ]);
             }
@@ -426,7 +428,7 @@ class BarangController extends Controller
                 ]);
                 return response()->json([
                     'code' => 1,
-                    'message' => 'operasi barang modal keluar berhasil',
+                    'message' => 'operasi barang modal keluar ' . $jumlah . " unit " . $databarang->nama . " berhasil",
                     'data' => $databarangfisik
                 ]);
             }else{
@@ -507,7 +509,7 @@ class BarangController extends Controller
                 ]);
                 return response()->json([
                     'code' => 1,
-                    'message' => 'operasi barang modal pinjam berhasil',
+                    'message' => 'operasi barang modal pinjam ' . $jumlah . " unit " . $databarang->nama . " berhasil",
                     'data' => $databarangfisik
                 ]);
             }else{
@@ -572,7 +574,7 @@ class BarangController extends Controller
         }else{
             return response()->json([
                 'code' => 0,
-                'message' => 'sesuatu terjadi, operasi barnag modal kembali gagal',
+                'message' => 'sesuatu terjadi, operasi barang modal kembali gagal',
                 'data' => []
             ]);
         }
