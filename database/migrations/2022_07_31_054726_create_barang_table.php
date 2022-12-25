@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nama');
             $table->integer('stok')->default(0);
             $table->string('satuan');
+            $table->bigInteger('harga');
             $table->timestamps();
         });
     }

@@ -51,6 +51,7 @@ class BarangController extends Controller
             'id_kategori' => 'required',
             'nama' => 'required',
             'satuan' => 'required',
+            'harga' => 'required'
         ]);
         if($validator->fails()){
             return response()->json([
@@ -63,6 +64,7 @@ class BarangController extends Controller
                 'id_kategori' => $request->input('id_kategori'),
                 'nama' => $request->input('nama'),
                 'satuan' => $request->input('satuan'),
+                'harga' => $request->input('harga'),
             ]);
             if($data){
                 return response()->json([
@@ -93,6 +95,7 @@ class BarangController extends Controller
             'id_kategori' => 'required',
             'nama' => 'required',
             'satuan' => 'required',
+            'harga' => 'required'
         ]);
         if($validator->fails()){
             return response()->json([
@@ -107,6 +110,7 @@ class BarangController extends Controller
                     'id_kategori' => $request->input('id_kategori'),
                     'nama' => $request->input('nama'),
                     'satuan' => $request->input('satuan'),
+                    'harga' => $request->input('harga'),
                 ]);
                 if($update){
                     return response()->json([
