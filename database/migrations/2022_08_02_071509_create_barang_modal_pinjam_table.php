@@ -15,9 +15,9 @@ return new class extends Migration
             $table->foreignId('id_barang')->index()->constrained('barang')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_barang_fisik')->index()->constrained('barang_fisik')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_ruang')->index()->constrained('ruang')->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamp('tanggal_keluar');
+            $table->timestamp('tanggal_keluar')->nullable();
             $table->string('kegunaan');
-            $table->timestamp('tanggal_kembali')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('tanggal_kembali')->nullable();
             $table->boolean('confirm')->default(false);
             $table->timestamps();
         });

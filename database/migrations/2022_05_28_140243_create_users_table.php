@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname')->nullable();
-            $table->string('email')->unique();
-            $table->string('nip')->unique()->nullable();
+            $table->string('email',128)->unique();
+            $table->string('nip',128)->unique()->nullable();
             $table->foreignId('id_unitkerja')->index()->constrained('unit_kerja')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('notelp')->unique()->nullable();
+            $table->string('notelp',128)->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('level')->default('user');
             $table->string('password');
