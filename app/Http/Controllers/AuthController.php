@@ -24,7 +24,7 @@ class AuthController extends Controller
                 'data' => []
             ]);
         } else {
-            $credentials = $request->only(['nip','email', 'password']);
+            $credentials = $request->only(['nip', 'password']);
             $user = User::where('nip', $request->nip)->first();
             if (isset($user)) {
                 $firstname = $user->firstname;
@@ -42,6 +42,8 @@ class AuthController extends Controller
                     return $this->respondWithToken($token, $firstname,$unitkerja ,$lastname, $nip, $email, $acToken);
                 }
             } else {
+                $request->email = $request->nip;
+                $credentials2 = $request->only(['email', 'password']);
                 $user2 = User::where('email',$request->nip)->first();
                 if(isset($user2)){
                     $firstname = $user2->firstname;
@@ -49,7 +51,7 @@ class AuthController extends Controller
                     $nip = $user2->nip;
                     $email = $user2->email;
                     $unitkerja = $user2->unitkerja->nama;
-                    if (!$token = Auth::attempt($credentials)) {
+                    if (!$token = Auth::attempt($credentials2)) {
                         return response()->json([
                             'code' => 0,
                             'message' => 'Unauthorized',
