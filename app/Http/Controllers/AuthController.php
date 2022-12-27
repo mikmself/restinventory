@@ -33,7 +33,11 @@ class AuthController extends Controller
                 $email = $user->email;
                 $unitkerja = $user->unitkerja->nama;
                 if (!$token = Auth::attempt($credentials)) {
-                    return response()->json(['message' => 'Unauthorized'], 401);
+                    return response()->json([
+                        'code' => 0,
+                        'message' => 'Unauthorized',
+                        'data' => []
+                    ], 401);
                 } else {
                     $user->update([
                         'token' => Str::random(60)
@@ -42,9 +46,12 @@ class AuthController extends Controller
                     return $this->respondWithToken($token, $firstname,$unitkerja ,$lastname, $nip, $email, $acToken);
                 }
             } else {
-                $request->email = $request->nip;
+                $request->replace([
+                    'email' => $request->nip,
+                    'password' => $request->password
+                ]);
                 $credentials2 = $request->only(['email', 'password']);
-                $user2 = User::where('email',$request->nip)->first();
+                $user2 = User::where('email',$request->email)->first();
                 if(isset($user2)){
                     $firstname = $user2->firstname;
                     $lastname = $user2->lastname;

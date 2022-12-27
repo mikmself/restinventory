@@ -242,6 +242,16 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin123'),
             'token' => Str::random(60)
         ]);
+        User::create([
+            'firstname' => 'Contoh Karyawan',
+            'lastname' => 'Tanpa Nip',
+            'email' => 'tanpanip@gmail.com',
+            'id_unitkerja' => '1',
+            'notelp' => '081327546472',
+            'level' => 'admin',
+            'password' => Hash::make('admin123'),
+            'token' => Str::random(60)
+        ]);
 
         //Ruang======================================================================
         Ruang::create([
