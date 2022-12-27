@@ -24,7 +24,7 @@ class AuthController extends Controller
                 'data' => []
             ]);
         } else {
-            $credentials = $request->only(['nip', 'password']);
+            $credentials = $request->only(['nip','email', 'password']);
             $user = User::where('nip', $request->nip)->first();
             if (isset($user)) {
                 $firstname = $user->firstname;

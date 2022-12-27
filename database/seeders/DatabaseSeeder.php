@@ -97,102 +97,135 @@ class DatabaseSeeder extends Seeder
             'harga' => 7000
         ]);
         // Unit Kerja=======================================================================
+        //1
         UnitKerja::create([
             'nama' => 'IT Support'
         ]);
+        //2
         UnitKerja::create([
             'nama' => 'Kepala Sekolah'
         ]);
+        //3
         UnitKerja::create([
             'nama' => 'Pendidikan Pancasila dan Kewarganegaraan'
         ]);
+        //4
         UnitKerja::create([
             'nama' => 'OTKP'
         ]);
+        //5
         UnitKerja::create([
             'nama' => 'BDP'
         ]);
+        //6
         UnitKerja::create([
             'nama' => 'BK'
         ]);
+        //7
         UnitKerja::create([
             'nama' => 'Matematika'
         ]);
+        //8
         UnitKerja::create([
             'nama' => 'Akutansi/PBS'
         ]);
+        //9
         UnitKerja::create([
             'nama' => 'Bahasa Indonesia'
         ]);
+        //10
         UnitKerja::create([
             'nama' => 'FKK'
         ]);
+        //11
         UnitKerja::create([
             'nama' => 'Akuntansi'
         ]);
+        //12
         UnitKerja::create([
             'nama' => 'Bahasa Inggris dan Bahasa Asing Lainnya'
         ]);
+        //13
         UnitKerja::create([
             'nama' => 'Pendidikan Agama dan Budi Pekerti'
         ]);
+        //14
         UnitKerja::create([
             'nama' => 'Sejarah Indonesia'
         ]);
+        //15
         UnitKerja::create([
             'nama' => 'DKV'
         ]);
+        //16
         UnitKerja::create([
             'nama' => 'PPLG'
         ]);
+        //17
         UnitKerja::create([
             'nama' => 'Penjasorkes'
         ]);
+        //18
         UnitKerja::create([
             'nama' => 'TJKT'
         ]);
+        //19
         UnitKerja::create([
             'nama' => 'Bahasa Jawa'
         ]);
+        //20
         UnitKerja::create([
             'nama' => 'Informatika'
         ]);
+        //21
         UnitKerja::create([
             'nama' => 'Kepala Tata Usaha'
         ]);
+        //22
         UnitKerja::create([
             'nama' => 'Tata Usaha'
         ]);
+        //23
         UnitKerja::create([
             'nama' => 'IPAS'
         ]);
+        //24
         UnitKerja::create([
             'nama' => 'Staf kurikulum'
         ]);
+        //25
         UnitKerja::create([
             'nama' => 'Bendahara BOS'
         ]);
+        //26
         UnitKerja::create([
             'nama' => 'Petugas Lab Farm'
         ]);
+        //27
         UnitKerja::create([
             'nama' => 'Petugas Perpus'
         ]);
+        //28
         UnitKerja::create([
             'nama' => 'Petugas Perpus / UKS'
         ]);
+        //29
         UnitKerja::create([
             'nama' => 'Sopir / Inventaris Barang'
         ]);
+        //30
         UnitKerja::create([
             'nama' => 'Teknisi'
         ]);
+        //31
         UnitKerja::create([
             'nama' => 'Satpam'
         ]);
+        //32
         UnitKerja::create([
             'nama' => 'Satpam / Kurir'
         ]);
+        //33
         UnitKerja::create([
             'nama' => 'Caraka'
         ]);
