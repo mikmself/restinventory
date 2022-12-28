@@ -26,58 +26,38 @@ class AuthController extends Controller
         } else {
             $credentials = $request->only(['nip', 'password']);
             $user = User::where('nip', $request->nip)->first();
-            if (isset($user)) {
-                $firstname = $user->firstname;
-                $lastname = $user->lastname;
-                $nip = $user->nip;
-                $email = $user->email;
-                $unitkerja = $user->unitkerja->nama;
-                if (!$token = Auth::attempt($credentials)) {
-                    return response()->json([
-                        'code' => 0,
-                        'message' => 'Unauthorized',
-                        'data' => []
-                    ], 401);
-                } else {
-                    $user->update([
-                        'token' => Str::random(60)
-                    ]);
-                    $acToken = $user->token;
-                    return $this->respondWithToken($token, $firstname,$unitkerja ,$lastname, $nip, $email, $acToken);
-                }
-            } else {
+            if (!isset($user)) {
+                $user = User::where('email',$request->nip)->first();
                 $request->replace([
                     'email' => $request->nip,
                     'password' => $request->password
                 ]);
-                $credentials2 = $request->only(['email', 'password']);
-                $user2 = User::where('email',$request->email)->first();
-                if(isset($user2)){
-                    $firstname = $user2->firstname;
-                    $lastname = $user2->lastname;
-                    $nip = $user2->nip;
-                    $email = $user2->email;
-                    $unitkerja = $user2->unitkerja->nama;
-                    if (!$token = Auth::attempt($credentials2)) {
-                        return response()->json([
-                            'code' => 0,
-                            'message' => 'Unauthorized',
-                            'data' => []
-                        ], 401);
-                    } else {
-                        $user2->update([
-                            'token' => Str::random(60)
-                        ]);
-                        $acToken = $user2->token;
-                        return $this->respondWithToken($token, $firstname,$unitkerja ,$lastname, $nip, $email, $acToken);
-                    }
-                }else{
+                $credentials = $request->only(['email', 'password']);
+                if(!isset($user)){
                     return response()->json([
                         'code' => 0,
                         'message' => 'nip/email anda tidak ditemukan!',
                         'data' => []
                     ]);
                 }
+            } 
+            $firstname = $user->firstname;
+            $lastname = $user->lastname;
+            $nip = $user->nip;
+            $email = $user->email;
+            $unitkerja = $user->unitkerja->nama;
+            if (!$token = Auth::attempt($credentials)) {
+                return response()->json([
+                    'code' => 0,
+                    'message' => 'Unauthorized',
+                    'data' => []
+                ], 401);
+            } else {
+                $user->update([
+                    'token' => Str::random(60)
+                ]);
+                $acToken = $user->token;
+                return $this->respondWithToken($token, $firstname,$unitkerja ,$lastname, $nip, $email, $acToken);
             }
         }
     }
