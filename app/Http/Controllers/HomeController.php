@@ -59,7 +59,7 @@ class HomeController extends Controller
     }
     public function barangKeluar(Request $request){
         $validator = Validator::make($request->all(),[
-            'id_user' => 'required',
+            'id_unitkerja' => 'required',
             'id_barang' => 'required',
             'jumlah' => 'required',
             'tanggal_keluar' => 'required',
@@ -87,7 +87,7 @@ class HomeController extends Controller
                     ]);
                 }else{
                     $data = BarangKeluar::create([
-                        'id_user' => $request->input('id_user'),
+                        'id_unitkerja' => $request->input('id_unitkerja'),
                         'id_barang' => $idbarang[$i],
                         'jumlah' => $jumlah[$i],
                         'tanggal_keluar' => $request->input('tanggal_keluar'),
