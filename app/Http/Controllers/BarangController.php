@@ -295,7 +295,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangKeluar(){
-        $data = BarangKeluar::with(['barang','user'])->paginate(20);
+        $data = BarangKeluar::with(['barang','unitkerja'])->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
