@@ -8,6 +8,7 @@ use App\Models\BarangKeluar;
 use App\Models\BarangModalKeluar;
 use App\Models\BarangModalPinjam;
 use App\Models\Ruang;
+use App\Models\UnitKerja;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -38,6 +39,14 @@ class HomeController extends Controller
             'code' => 1,
             'message' => 'semua data',
             'data' => $data,
+        ]);
+    }
+    public function indexUnitKerja(){
+        $data = UnitKerja::get();
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua data',
+            'data' => $data
         ]);
     }
     public function indexRuang(){

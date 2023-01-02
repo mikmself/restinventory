@@ -8,6 +8,7 @@ $router->group(['prefix' => '/user/nonauth'], function () use ($router) {
     $router->get('/indexbarang', 'HomeController@indexBarang');
     $router->get('/indexbarangfisik', 'HomeController@indexBarangFisik');
     $router->get('/indexuser', 'HomeController@indexUser');
+    $router->get('/indexunitkerja', 'HomeController@indexUnitKerja');
     $router->get('/indexruang', 'HomeController@indexRuang');
     $router->post('/barangkeluar', 'HomeController@barangKeluar');
     $router->post('/barangmodalkeluar', 'HomeController@barangModalKeluar');
