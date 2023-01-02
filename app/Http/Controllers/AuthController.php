@@ -45,7 +45,6 @@ class AuthController extends Controller
             $lastname = $user->lastname;
             $nip = $user->nip;
             $email = $user->email;
-            $unitkerja = $user->unitkerja->nama;
             if (!$token = Auth::attempt($credentials)) {
                 return response()->json([
                     'code' => 0,
@@ -57,7 +56,7 @@ class AuthController extends Controller
                     'token' => Str::random(60)
                 ]);
                 $acToken = $user->token;
-                return $this->respondWithToken($token, $firstname,$unitkerja ,$lastname, $nip, $email, $acToken);
+                return $this->respondWithToken($token, $firstname ,$lastname, $nip, $email, $acToken);
             }
         }
     }
