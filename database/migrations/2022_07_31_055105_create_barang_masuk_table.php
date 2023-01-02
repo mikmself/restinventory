@@ -20,8 +20,6 @@ return new class extends Migration
             $table->foreignId('id_kategori')->index()->constrained('kategori')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('jumlah');
             $table->timestamp('tanggal_masuk');
-            $table->string('pemesan');
-            $table->string('penerima');
             $table->bigInteger('harga');
             $table->timestamps();
         });
