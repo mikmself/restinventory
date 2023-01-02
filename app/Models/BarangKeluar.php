@@ -17,8 +17,8 @@ class BarangKeluar extends Model
     ];
 
     // belongsTo
-    public function user(){
-        return $this->belongsTo(User::class,'id_user');
+    public function unitkerja(){
+        return $this->belongsTo(UnitKerja::class,'id_unitkerja');
     }
     public function barang(){
         return $this->belongsTo(Barang::class,'id_barang');

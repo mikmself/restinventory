@@ -63,38 +63,32 @@ class DatabaseSeeder extends Seeder
             'id_kategori' => '1',
             'nama' => 'Kursi',
             'satuan' => 'Unit',
-            'harga' => 500000
         ]);
         Barang::create([
             'id_kategori' => '1',
             'nama' => 'Meja',
             'satuan' => 'Unit',
-            'harga' => 1500000
         ]);
         Barang::create([
             'id_kategori' => '1',
             'nama' => 'Proyektor',
             'satuan' => 'Unit',
-            'harga' => 2000000
         ]);
 
         Barang::create([
             'id_kategori' => '2',
             'nama' => 'Penghapus',
             'satuan' => 'Box',
-            'harga' => 50000
         ]);
         Barang::create([
             'id_kategori' => '2',
             'nama' => 'Spidol',
             'satuan' => 'Box',
-            'harga' => 40000
         ]);
         Barang::create([
             'id_kategori' => '2',
             'nama' => 'Kapur',
             'satuan' => 'Box',
-            'harga' => 7000
         ]);
         // Unit Kerja=======================================================================
         //1
