@@ -51,7 +51,6 @@ class BarangController extends Controller
             'id_kategori' => 'required',
             'nama' => 'required',
             'satuan' => 'required',
-            'harga' => 'required'
         ]);
         if($validator->fails()){
             return response()->json([
@@ -64,7 +63,6 @@ class BarangController extends Controller
                 'id_kategori' => $request->input('id_kategori'),
                 'nama' => $request->input('nama'),
                 'satuan' => $request->input('satuan'),
-                'harga' => $request->input('harga'),
             ]);
             if($data){
                 return response()->json([
@@ -95,7 +93,6 @@ class BarangController extends Controller
             'id_kategori' => 'required',
             'nama' => 'required',
             'satuan' => 'required',
-            'harga' => 'required'
         ]);
         if($validator->fails()){
             return response()->json([
@@ -110,7 +107,6 @@ class BarangController extends Controller
                     'id_kategori' => $request->input('id_kategori'),
                     'nama' => $request->input('nama'),
                     'satuan' => $request->input('satuan'),
-                    'harga' => $request->input('harga'),
                 ]);
                 if($update){
                     return response()->json([
@@ -174,8 +170,7 @@ class BarangController extends Controller
             'id_kategori' => 'required',
             'jumlah' => 'required',
             'tanggal_masuk' => 'required',
-            'pemesan' => 'required',
-            'penerima' => 'required',
+            'harga' => 'required'
         ]);
         if($validator->fails()){
             return response()->json([
@@ -209,8 +204,7 @@ class BarangController extends Controller
                     'id_kategori' => $request->input('id_kategori'),
                     'jumlah' => $jumlah,
                     'tanggal_masuk' => $request->input('tanggal_masuk'),
-                    'pemesan' => $request->input('pemesan'),
-                    'penerima' => $request->input('penerima'),
+                    'harga' => $request->input('harga'),
                 ]);
                 if($barangfisik === null){
                     if($data){
@@ -279,8 +273,7 @@ class BarangController extends Controller
                     'id_kategori' => $request->input('id_kategori'),
                     'jumlah' => $jumlah,
                     'tanggal_masuk' => $request->input('tanggal_masuk'),
-                    'pemesan' => $request->input('pemesan'),
-                    'penerima' => $request->input('penerima'),
+                    'harga' => $request->input('harga'),
                 ]);
                 if($data){
                     $barang->update([
@@ -311,8 +304,8 @@ class BarangController extends Controller
     }
     public function barangKeluar(Request $request){
         $validator = Validator::make($request->all(),[
-            'id_user' => 'required',
             'id_barang' => 'required',
+            'id_unitkerja' => 'required',
             'jumlah' => 'required',
             'tanggal_keluar' => 'required',
             'kegunaan' => 'required'
@@ -339,8 +332,8 @@ class BarangController extends Controller
                     ]);
                 }else{
                     $data = BarangKeluar::create([
-                        'id_user' => $request->input('id_user'),
                         'id_barang' => $idbarang[$i],
+                        'id_unitkerja' => $request->input('id_unitkerja'),
                         'jumlah' => $jumlah[$i],
                         'tanggal_keluar' => $request->input('tanggal_keluar'),
                         'kegunaan' => $request->input('kegunaan')

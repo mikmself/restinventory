@@ -12,7 +12,6 @@ class Barang extends Model
         'nama',
         'stok',
         'satuan',
-        'harga'
     ];
 
     // belongsTo

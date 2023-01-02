@@ -22,6 +22,7 @@ return new class extends Migration
             $table->timestamp('tanggal_masuk');
             $table->string('pemesan');
             $table->string('penerima');
+            $table->bigInteger('harga');
             $table->timestamps();
         });
     }

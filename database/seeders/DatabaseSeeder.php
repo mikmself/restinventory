@@ -99,155 +99,71 @@ class DatabaseSeeder extends Seeder
         // Unit Kerja=======================================================================
         //1
         UnitKerja::create([
-            'nama' => 'IT Support'
+            'nama' => 'TU'
         ]);
         //2
         UnitKerja::create([
-            'nama' => 'Kepala Sekolah'
+            'nama' => 'KURIKULUM'
         ]);
         //3
         UnitKerja::create([
-            'nama' => 'Pendidikan Pancasila dan Kewarganegaraan'
+            'nama' => 'KESISWAAN'
         ]);
         //4
         UnitKerja::create([
-            'nama' => 'OTKP'
+            'nama' => 'SARPRAS'
         ]);
         //5
         UnitKerja::create([
-            'nama' => 'BDP'
+            'nama' => 'HUMAS'
         ]);
         //6
         UnitKerja::create([
-            'nama' => 'BK'
+            'nama' => 'SDM'
         ]);
         //7
         UnitKerja::create([
-            'nama' => 'Matematika'
+            'nama' => 'PENJAMIN MUTU'
         ]);
         //8
         UnitKerja::create([
-            'nama' => 'Akutansi/PBS'
+            'nama' => 'RPL/PPLG'
         ]);
         //9
         UnitKerja::create([
-            'nama' => 'Bahasa Indonesia'
+            'nama' => 'MM/DKV'
         ]);
         //10
         UnitKerja::create([
-            'nama' => 'FKK'
+            'nama' => 'TKJ/TJKT'
         ]);
         //11
         UnitKerja::create([
-            'nama' => 'Akuntansi'
+            'nama' => 'OTKP/MPLB'
         ]);
         //12
         UnitKerja::create([
-            'nama' => 'Bahasa Inggris dan Bahasa Asing Lainnya'
+            'nama' => 'BDP/PM'
         ]);
         //13
         UnitKerja::create([
-            'nama' => 'Pendidikan Agama dan Budi Pekerti'
+            'nama' => 'FKK/TF'
         ]);
         //14
         UnitKerja::create([
-            'nama' => 'Sejarah Indonesia'
+            'nama' => 'AKL'
         ]);
         //15
         UnitKerja::create([
-            'nama' => 'DKV'
+            'nama' => 'PBS'
         ]);
-        //16
-        UnitKerja::create([
-            'nama' => 'PPLG'
-        ]);
-        //17
-        UnitKerja::create([
-            'nama' => 'Penjasorkes'
-        ]);
-        //18
-        UnitKerja::create([
-            'nama' => 'TJKT'
-        ]);
-        //19
-        UnitKerja::create([
-            'nama' => 'Bahasa Jawa'
-        ]);
-        //20
-        UnitKerja::create([
-            'nama' => 'Informatika'
-        ]);
-        //21
-        UnitKerja::create([
-            'nama' => 'Kepala Tata Usaha'
-        ]);
-        //22
-        UnitKerja::create([
-            'nama' => 'Tata Usaha'
-        ]);
-        //23
-        UnitKerja::create([
-            'nama' => 'IPAS'
-        ]);
-        //24
-        UnitKerja::create([
-            'nama' => 'Staf kurikulum'
-        ]);
-        //25
-        UnitKerja::create([
-            'nama' => 'Bendahara BOS'
-        ]);
-        //26
-        UnitKerja::create([
-            'nama' => 'Petugas Lab Farm'
-        ]);
-        //27
-        UnitKerja::create([
-            'nama' => 'Petugas Perpus'
-        ]);
-        //28
-        UnitKerja::create([
-            'nama' => 'Petugas Perpus / UKS'
-        ]);
-        //29
-        UnitKerja::create([
-            'nama' => 'Sopir / Inventaris Barang'
-        ]);
-        //30
-        UnitKerja::create([
-            'nama' => 'Teknisi'
-        ]);
-        //31
-        UnitKerja::create([
-            'nama' => 'Satpam'
-        ]);
-        //32
-        UnitKerja::create([
-            'nama' => 'Satpam / Kurir'
-        ]);
-        //33
-        UnitKerja::create([
-            'nama' => 'Caraka'
-        ]);
-
         //User=======================================================================
         User::create([
             'firstname' => 'Muhamad Irga',
             'lastname' => 'Khoirul Mahfis',
             'email' => 'mikmself@gmail.com',
             'nip' => '827559966454369898',
-            'id_unitkerja' => '1',
             'notelp' => '081327546471',
-            'level' => 'admin',
-            'password' => Hash::make('admin123'),
-            'token' => Str::random(60)
-        ]);
-        User::create([
-            'firstname' => 'Contoh Karyawan',
-            'lastname' => 'Tanpa Nip',
-            'email' => 'tanpanip@gmail.com',
-            'id_unitkerja' => '1',
-            'notelp' => '081327546472',
             'level' => 'admin',
             'password' => Hash::make('admin123'),
             'token' => Str::random(60)

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('lastname')->nullable();
             $table->string('email',128)->unique();
             $table->string('nip',128)->nullable();
-            $table->foreignId('id_unitkerja')->index()->constrained('unit_kerja')->onUpdate('cascade')->onDelete('cascade');
             $table->string('notelp',128)->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('level')->default('user');

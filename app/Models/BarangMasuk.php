@@ -15,6 +15,7 @@ class BarangMasuk extends Model
         'tanggal_masuk',
         'pemesan',
         'penerima',
+        'harga'
     ];
 
     // belongsTo

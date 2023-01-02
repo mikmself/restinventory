@@ -8,8 +8,8 @@ class BarangKeluar extends Model
 {
     protected $table = "barang_keluar";
     protected $fillable = [
-        'id_user',
         'id_barang',
+        'id_unitkerja',
         'jumlah',
         'tanggal_keluar',
         'kegunaan',
