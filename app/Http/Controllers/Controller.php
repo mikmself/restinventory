@@ -6,7 +6,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    public function respondWithToken($token, $firstname,$lastname, $nip,$email, $acToken)
+    public function respondWithToken($token, $firstname,$lastname, $nip,$level,$email, $acToken)
     {
         return response()->json([
             'code' => 1,
@@ -16,6 +16,7 @@ class Controller extends BaseController
                 'firstname' => $firstname,
                 'lastname' => $lastname,
                 'nip' => $nip,
+                'level' => $level,
                 'email' => $email,
                 'access_token' => $acToken,
                 'token_type' => 'bearer',
