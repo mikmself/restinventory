@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('suplayer', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->text('alamat');
-            $table->text('nohp');
+            $table->text('alamat')->nullable();
+            $table->text('nohp')->nullable();
             $table->timestamps();
         });
     }

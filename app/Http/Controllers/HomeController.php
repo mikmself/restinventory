@@ -227,8 +227,8 @@ class HomeController extends Controller
 
         $jumlahbulanan = 0;
         $jumlahtahunan = 0;
-        $barangkeluarbulanan = BarangKeluar::whereMonth('created_at',$month)->get();;
-        $barangkeluartahunan = BarangKeluar::whereYear('created_at',$year)->get();;
+        $barangkeluarbulanan = BarangKeluar::whereMonth('created_at',$month)->get();
+        $barangkeluartahunan = BarangKeluar::whereYear('created_at',$year)->get();
         foreach ($barangkeluarbulanan as $bulanan) {
             $jumlahbulanan += $bulanan->jumlah;
         }
@@ -236,11 +236,11 @@ class HomeController extends Controller
             $jumlahtahunan += $tahunan->jumlah;
         }
 
-        $barangmodalkeluarbulanan = DB::table('barang_modal_keluar')->whereMonth('created_at',$month)->get();;
-        $barangmodalkeluartahunan = DB::table('barang_modal_keluar')->whereYear('created_at',$year)->get();;
+        $barangmodalkeluarbulanan = DB::table('barang_modal_keluar')->whereMonth('created_at',$month)->get();
+        $barangmodalkeluartahunan = DB::table('barang_modal_keluar')->whereYear('created_at',$year)->get();
 
-        $barangmodalpinjambulanan = DB::table('barang_modal_pinjam')->whereMonth('created_at',$month)->get();;
-        $barangmodalpinjamtahunan = DB::table('barang_modal_pinjam')->whereYear('created_at',$year)->get();;
+        $barangmodalpinjambulanan = DB::table('barang_modal_pinjam')->whereMonth('created_at',$month)->get();
+        $barangmodalpinjamtahunan = DB::table('barang_modal_pinjam')->whereYear('created_at',$year)->get();
 
         $data = [
             'barang_keluar_bulanan' => $jumlahbulanan,

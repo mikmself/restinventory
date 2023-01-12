@@ -10,8 +10,9 @@ use App\Models\BarangModalKeluar;
 use App\Models\BarangModalKembali;
 use App\Models\BarangModalPinjam;
 use App\Models\Pengaturan;
+use App\Models\Suplayer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 
 class BarangController extends Controller
@@ -612,5 +613,36 @@ class BarangController extends Controller
                 'data' => []
             ]);
         }
+    }
+    public function importbarangmasuk(Request $request)
+    {
+        $count = count($request->rows);
+        $count -= 1;
+        $arraydata = [];
+        for ($x = 0; $x <= $count; $x++) {
+            $row = $request->rows[$x];
+            $barang = Barang::where('nama',$row['nama_barang'])->first();
+            $suplayer = Suplayer::where('nama',$row['suplayer'])->first();
+            if(!isset($suplayer)){
+                Suplayer::create([
+                    'nama' => $row['suplayer']
+                ]);
+            }
+            $idSuplayer = Suplayer::where('nama',$row['suplayer'])->first()->id;
+            $data = BarangMasuk::create([
+                'id_barang' => $barang->id,
+                'id_suplayer' => $idSuplayer,
+                'id_kategori' => $barang->id_kategori,
+                'jumlah' => $row['jumlah'],
+                'harga' => $row['harga'],
+                'tanggal_masuk' => Carbon::now()
+            ]);  
+            array_push($arraydata,$data);
+        }
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua data telah berhasil dibuat',
+            'data' => $arraydata
+        ]);
     }
 }
