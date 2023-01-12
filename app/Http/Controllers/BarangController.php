@@ -637,6 +637,9 @@ class BarangController extends Controller
                 'harga' => $row['harga'],
                 'tanggal_masuk' => Carbon::now()
             ]);  
+            $barang->update([
+                'stok' => $barang->stok + $row['jumlah']
+            ]);
             array_push($arraydata,$data);
         }
         return response()->json([
