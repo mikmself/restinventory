@@ -98,6 +98,12 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->post('/update/{id}','UserController@update');
         $router->delete('/destroy/{id}','UserController@destroy');
         $router->post('/importexcel','UserController@importexcel');
-
+    });
+    $router->group(['prefix' => 'laporan'], function () use ($router) {
+        $router->post('/barangmasuk','LaporanController@laporanBarangMasuk');
+        $router->post('/barangkeluar','LaporanController@laporanBarangKeluar');
+        $router->post('/barangmodalkeluar','LaporanController@laporanBarangModalKeluar');
+        $router->post('/barangmodalpinjam','LaporanController@laporanBarangModalPinjam');
+        $router->post('/barangmodalkembali','LaporanController@laporanBarangModalKembali');
     });
 });
