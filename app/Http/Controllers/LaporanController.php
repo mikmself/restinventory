@@ -21,13 +21,13 @@ class LaporanController extends Controller
         $isRequestTime = isset($start) && isset($end);
 
         if($isRequestNama && $isRequestTime){
-            $data = BarangMasuk::with('barang','suplayer','kategori')->whereHas('barang',function($query,Request $request){
-                return $query->where('nama',$request->input('nama'));
+            $data = BarangMasuk::with('barang','suplayer','kategori')->whereHas('barang',function($query) use($nama){
+                return $query->where('nama',$nama);
             })->whereBetween('created_at',[$start,$end])->get();
         }
         if($isRequestNama) {
-            $data = BarangMasuk::with('barang','suplayer','kategori')->whereHas('barang',function($query,Request $request){
-                return $query->where('nama',$request->input('nama'));
+            $data = BarangMasuk::with('barang','suplayer','kategori')->whereHas('barang',function($query) use($nama){
+                return $query->where('nama',$nama);
             })->get();
         }
         if($isRequestTime){
@@ -56,13 +56,13 @@ class LaporanController extends Controller
         $isRequestTime = isset($start) && isset($end);
 
         if($isRequestNama && $isRequestTime){
-            $data = BarangKeluar::with('barang','unitkerja')->whereHas('barang',function($query,Request $request){
-                return $query->where('nama',$request->input('nama'));
+            $data = BarangKeluar::with('barang','unitkerja')->whereHas('barang',function($query) use($nama){
+                return $query->where('nama',$nama);
             })->get();
         }
         if($isRequestNama) {
-            $data = BarangKeluar::with('barang','unitkerja')->whereHas('barang',function($query,Request $request){
-                return $query->where('nama',$request->input('nama'));
+            $data = BarangKeluar::with('barang','unitkerja')->whereHas('barang',function($query) use($nama){
+                return $query->where('nama',$nama);
             })->get();
         }
         if($isRequestTime){
@@ -91,13 +91,13 @@ class LaporanController extends Controller
         $isRequestTime = isset($start) && isset($end);
 
         if($isRequestNama && $isRequestTime){
-            $data = BarangModalKeluar::with('barang','barangfisik','user','ruang')->whereHas('barang',function($query,Request $request){
-                return $query->where('nama',$request->input('nama'));
+            $data = BarangModalKeluar::with('barang','barangfisik','user','ruang')->whereHas('barang',function($query) use($nama){
+                return $query->where('nama',$nama);
             })->whereBetween('created_at',[$start,$end])->get();
         }
         if($isRequestNama) {
-            $data = BarangModalKeluar::with('barang','barangfisik','user','ruang')->whereHas('barang',function($query,Request $request){
-                return $query->where('nama',$request->input('nama'));
+            $data = BarangModalKeluar::with('barang','barangfisik','user','ruang')->whereHas('barang',function($query) use($nama){
+                return $query->where('nama',$nama);
             })->get();
         }
         if($isRequestTime){
@@ -126,13 +126,13 @@ class LaporanController extends Controller
         $isRequestTime = isset($start) && isset($end);
 
         if($isRequestNama && $isRequestTime){
-            $data = BarangModalPinjam::with('barang','barangfisik','user','ruang')->whereHas('barang',function($query,Request $request){
-                return $query->where('nama',$request->input('nama'));
+            $data = BarangModalPinjam::with('barang','barangfisik','user','ruang')->whereHas('barang',function($query) use($nama){
+                return $query->where('nama',$nama);
             })->whereBetween('created_at',[$start,$end])->get();
         }
         if($isRequestNama) {
-            $data = BarangModalPinjam::with('barang','barangfisik','user','ruang')->whereHas('barang',function($query,Request $request){
-                return $query->where('nama',$request->input('nama'));
+            $data = BarangModalPinjam::with('barang','barangfisik','user','ruang')->whereHas('barang',function($query) use($nama){
+                return $query->where('nama',$nama);
             })->get();
         }
         if($isRequestTime){
@@ -161,13 +161,13 @@ class LaporanController extends Controller
         $isRequestTime = isset($start) && isset($end);
 
         if($isRequestNama && $isRequestTime){
-            $data = BarangModalKembali::with('barang','barangfisik')->whereHas('barang',function($query,Request $request){
-                return $query->where('nama',$request->input('nama'));
+            $data = BarangModalKembali::with('barang','barangfisik')->whereHas('barang',function($query) use($nama){
+                return $query->where('nama',$nama);
             })->whereBetween('created_at',[$start,$end])->get();
         }
         if($isRequestNama) {
-            $data = BarangModalKembali::with('barang','barangfisik')->whereHas('barang',function($query,Request $request){
-                return $query->where('nama',$request->input('nama'));
+            $data = BarangModalKembali::with('barang','barangfisik')->whereHas('barang',function($query) use($nama){
+                return $query->where('nama',$nama);
             })->get();
         }
         if($isRequestTime){
