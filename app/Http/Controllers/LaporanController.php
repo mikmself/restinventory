@@ -22,7 +22,9 @@ class LaporanController extends Controller
 
         if($isRequestNama && $isRequestTime){
             $data = BarangMasuk::with('barang','suplayer','kategori')->where(function ($query) use($nama,$start,$end){
-                $query->where('nama',$nama)->whereBetween('created_at',[$start,$end]);
+                $query->whereHas('barang',function($query) use($nama){
+                        return $query->where('nama',$nama);
+                    })->whereBetween('created_at',[$start,$end]);
             })->get();
         }
         if($isRequestNama) {
