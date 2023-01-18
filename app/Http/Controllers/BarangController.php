@@ -614,8 +614,7 @@ class BarangController extends Controller
             ]);
         }
     }
-    public function importbarangmasuk(Request $request)
-    {
+    public function importBarangMasukHabisPakai(Request $request){
         $count = count($request->rows);
         $count -= 1;
         $arraydata = [];
@@ -628,24 +627,145 @@ class BarangController extends Controller
                     'nama' => $row['suplayer']
                 ]);
             }
+            if(!isset($barang)){
+                Barang::create([
+                    'nama' => $row['nama_barang'],
+                    'id_kategori' => 2,
+                    'satuan' => $row['satuan'],
+                    'stok' => $row['jumlah']
+                ]);
+            }
+
             $idSuplayer = Suplayer::where('nama',$row['suplayer'])->first()->id;
+            $idBarang = Barang::where('nama',$row['nama_barang'])->first()->id;
+
             $data = BarangMasuk::create([
-                'id_barang' => $barang->id,
+                'id_barang' => $idBarang,
                 'id_suplayer' => $idSuplayer,
-                'id_kategori' => $barang->id_kategori,
+                'id_kategori' => 2,
                 'jumlah' => $row['jumlah'],
+                'tanggal_masuk' => Carbon::now(),
                 'harga' => $row['harga'],
-                'tanggal_masuk' => Carbon::now()
-            ]);  
-            $barang->update([
-                'stok' => $barang->stok + $row['jumlah']
             ]);
-            array_push($arraydata,$data);
+            if($data){
+                $barang->update([
+                    'stok' => $barang->stok +  $row['jumlah']
+                ]);
+                array_push($arraydata,$data);
+            }
         }
-        return response()->json([
-            'code' => 1,
-            'message' => 'semua data telah berhasil dibuat',
-            'data' => $arraydata
-        ]);
+    }
+    public function importBarangMasukModal(Request $request){
+        $count = count($request->rows);
+        $count -= 1;
+        $arraydata = [];
+        for ($x = 0; $x <= $count; $x++) {
+            $row = $request->rows[$x];
+            $barang = Barang::where('nama',$row['nama_barang'])->first();
+            $suplayer = Suplayer::where('nama',$row['suplayer'])->first();
+            if(!isset($suplayer)){
+                Suplayer::create([
+                    'nama' => $row['suplayer']
+                ]);
+            }
+            if(!isset($barang)){
+                Barang::create([
+                    'nama' => $row['nama_barang'],
+                    'id_kategori' => 1,
+                    'satuan' => $row['satuan'],
+                    'stok' => $row['jumlah']
+                ]);
+            }
+
+            $idSuplayer = Suplayer::where('nama',$row['suplayer'])->first()->id;
+            $idBarang = Barang::where('nama',$row['nama_barang'])->first()->id;
+
+            $data = BarangMasuk::create([
+                'id_barang' => $idBarang,
+                'id_suplayer' => $idSuplayer,
+                'id_kategori' => 1,
+                'jumlah' => $row['jumlah'],
+                'tanggal_masuk' => Carbon::now(),
+                'harga' => $row['harga'],
+            ]);
+            if($data){
+                $barang->update([
+                    'stok' => $barang->stok +  $row['jumlah']
+                ]);
+                array_push($arraydata,$data);
+
+                
+                // Pengaturan
+                $prefix = Pengaturan::where('key','prefix')->pluck('value')->first();
+                $infix = Pengaturan::where('key','infix')->pluck('value')->first();
+                $suffix = Pengaturan::where('key','suffix')->pluck('value')->first();
+                // mencari barang dengan nama yang mirip
+                $selectbarangfisik = BarangFisik::where('kode','like','%' .  $barang->nama . '%')->get();
+                // Mencari max kode tertingi
+                $max = $selectbarangfisik->max('kode');
+                // Menacari barang fisik sesuai kode
+                $barangfisik = BarangFisik::where('kode',$max)->first();
+
+                if($barangfisik === null){
+                    if($data){
+                        $databarangfisik = [];
+                        for ($i=1; $i <= $row['jumlah']; $i++) {
+                            $storebarangfisik = BarangFisik::create([
+                                'id_barang' => $idBarang,
+                                'kode' => $prefix . "." . $barang->nama . "." . str_pad($i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
+                            ]);
+                            array_push($databarangfisik,$storebarangfisik);
+                        }
+                        $barang->update([
+                            'stok' => $barang->stok + $row['jumlah']
+                        ]);
+                        return response()->json([
+                            'code' => 1,
+                            'message' => 'data berhasil dibuat',
+                            'data' => [
+                                'data_barang_masuk' => $data,
+                                'data_barang_fisik' => $databarangfisik
+                            ]
+                        ]);
+                    }else{
+                        return response()->json([
+                            'code' => 0,
+                            'message' => 'data gagal dibuat',
+                            'data' => []
+                        ]);
+                    }
+                }else{
+                    $explode = explode(".",$barangfisik->kode);
+                    $angkainfix = $explode[2];
+                    if($data){
+                        $databarangfisik = [];
+                        for ($i=1; $i <= $row['jumlah']; $i++) {
+                            $storebarangfisik = BarangFisik::create([
+                                'id_barang' => $idBarang,
+                                'kode' => $prefix . "." . $barang->nama . "." . str_pad($angkainfix+$i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
+                            ]);
+                            array_push($databarangfisik,$storebarangfisik);
+                        }
+                        $barang->update([
+                            'stok' => $barang->stok + $row['jumlah']
+                        ]);
+                        return response()->json([
+                            'code' => 1,
+                            'message' => 'data berhasil dibuat',
+                            'data' => [
+                                'data_barang_masuk' => $data,
+                                'data_barang_fisik' => $databarangfisik
+                            ]
+                        ]);
+                    }else{
+                        return response()->json([
+                            'code' => 0,
+                            'message' => 'data gagal dibuat',
+                            'data' => []
+                        ]);
+                    }
+                }
+            }
+        }
     }
 }

@@ -44,7 +44,8 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->get('/barangmodalkembali/id={id}','BarangController@barangModalKembali');
 
         $router->post('/importexcel','BarangController@importexcel');
-        $router->post('/importbarangmasuk','BarangController@importbarangmasuk');
+        $router->post('/importbarangmasukhabispakai','BarangController@importBarangMasukHabisPakai');
+        $router->post('/importbarangmasukmodal','BarangController@importBarangMasukModal');
         $router->post('/store','BarangController@store');
         $router->get('/show/{id}','BarangController@show');
         $router->post('/update/{id}','BarangController@update');
