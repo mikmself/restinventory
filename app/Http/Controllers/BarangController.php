@@ -648,8 +648,9 @@ class BarangController extends Controller
                 'harga' => $row['harga'],
             ]);
             if($data){
-                $barang->update([
-                    'stok' => $barang->stok +  $row['jumlah']
+                $databarang = Barang::where('nama',$row['nama_barang'])->first();
+                $databarang->update([
+                    'stok' => $databarang->stok +  $row['jumlah']
                 ]);
                 array_push($arraydata,$data);
             }
@@ -689,8 +690,9 @@ class BarangController extends Controller
                 'harga' => $row['harga'],
             ]);
             if($data){
-                $barang->update([
-                    'stok' => $barang->stok +  $row['jumlah']
+                $databarang = Barang::where('nama',$row['nama_barang'])->first();
+                $databarang->update([
+                    'stok' => $databarang->stok +  $row['jumlah']
                 ]);
                 array_push($arraydata,$data);
 
