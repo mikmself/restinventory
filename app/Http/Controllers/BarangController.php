@@ -707,7 +707,7 @@ class BarangController extends Controller
                 $infix = Pengaturan::where('key','infix')->pluck('value')->first();
                 $suffix = Pengaturan::where('key','suffix')->pluck('value')->first();
                 // mencari barang dengan nama yang mirip
-                $selectbarangfisik = BarangFisik::where('kode','like','%' .  $barang->nama . '%')->get();
+                $selectbarangfisik = BarangFisik::where('kode','like','%' .  $databarang->nama . '%')->get();
                 // Mencari max kode tertingi
                 $max = $selectbarangfisik->max('kode');
                 // Menacari barang fisik sesuai kode
@@ -719,12 +719,12 @@ class BarangController extends Controller
                         for ($i=1; $i <= $row['jumlah']; $i++) {
                             $storebarangfisik = BarangFisik::create([
                                 'id_barang' => $idBarang,
-                                'kode' => $prefix . "." . $barang->nama . "." . str_pad($i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
+                                'kode' => $prefix . "." . $databarang->nama . "." . str_pad($i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
                             ]);
                             array_push($databarangfisik,$storebarangfisik);
                         }
-                        $barang->update([
-                            'stok' => $barang->stok + $row['jumlah']
+                        $databarang->update([
+                            'stok' => $databarang->stok + $row['jumlah']
                         ]);
                         return response()->json([
                             'code' => 1,
@@ -753,8 +753,8 @@ class BarangController extends Controller
                             ]);
                             array_push($databarangfisik,$storebarangfisik);
                         }
-                        $barang->update([
-                            'stok' => $barang->stok + $row['jumlah']
+                        $databarang->update([
+                            'stok' => $databarang->stok + $row['jumlah']
                         ]);
                         return response()->json([
                             'code' => 1,
