@@ -655,6 +655,11 @@ class BarangController extends Controller
                 array_push($arraydata,$data);
             }
         }
+        return response()->json([
+            'code' => 1,
+            'message' => 'data berhasil di import',
+            'data' => $arraydata
+        ]);
     }
     public function importBarangMasukModal(Request $request){
         $count = count($request->rows);
