@@ -726,20 +726,6 @@ class BarangController extends Controller
                         $databarang->update([
                             'stok' => $databarang->stok + $row['jumlah']
                         ]);
-                        return response()->json([
-                            'code' => 1,
-                            'message' => 'data berhasil dibuat',
-                            'data' => [
-                                'data_barang_masuk' => $data,
-                                'data_barang_fisik' => $databarangfisik
-                            ]
-                        ]);
-                    }else{
-                        return response()->json([
-                            'code' => 0,
-                            'message' => 'data gagal dibuat',
-                            'data' => []
-                        ]);
                     }
                 }else{
                     $explode = explode(".",$barangfisik->kode);
@@ -756,23 +742,14 @@ class BarangController extends Controller
                         $databarang->update([
                             'stok' => $databarang->stok + $row['jumlah']
                         ]);
-                        return response()->json([
-                            'code' => 1,
-                            'message' => 'data berhasil dibuat',
-                            'data' => [
-                                'data_barang_masuk' => $data,
-                                'data_barang_fisik' => $databarangfisik
-                            ]
-                        ]);
-                    }else{
-                        return response()->json([
-                            'code' => 0,
-                            'message' => 'data gagal dibuat',
-                            'data' => []
-                        ]);
                     }
                 }
             }
         }
+        return response()->json([
+            'code' => 1,
+            'message' => 'data berhasil di import',
+            'data' => $arraydata
+        ]);
     }
 }
