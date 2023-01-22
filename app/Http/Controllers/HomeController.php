@@ -79,26 +79,18 @@ class HomeController extends Controller
             $totaljumlah = 0;
             for ($i=0; $i < $total; $i++) {
                 $databarang = Barang::whereId($idbarang[$i])->first();
-                if($databarang->stok == 0){
-                    return response()->json([
-                        'code' => 0,
-                        'message' => 'stok barang masih kosong!',
-                        'data' => []
-                    ]);
-                }else{
-                    $data = BarangKeluar::create([
-                        'id_unitkerja' => $request->input('id_unitkerja'),
-                        'id_barang' => $idbarang[$i],
-                        'jumlah' => $jumlah[$i],
-                        'tanggal_keluar' => $request->input('tanggal_keluar'),
-                        'kegunaan' => $request->input('kegunaan')
-                    ]);
-                    array_push($kumpulandata,$data);
-                    $databarang->update([
-                        'stok' => $databarang->stok - $jumlah[$i]
-                    ]);
-                    $totaljumlah += $jumlah[$i];
-                }
+                $data = BarangKeluar::create([
+                    'id_unitkerja' => $request->input('id_unitkerja'),
+                    'id_barang' => $idbarang[$i],
+                    'jumlah' => $jumlah[$i],
+                    'tanggal_keluar' => $request->input('tanggal_keluar'),
+                    'kegunaan' => $request->input('kegunaan')
+                ]);
+                array_push($kumpulandata,$data);
+                $databarang->update([
+                    'stok' => $databarang->stok - $jumlah[$i]
+                ]);
+                $totaljumlah += $jumlah[$i];
             }
             if(count($kumpulandata) > 0){
                 return response()->json([
