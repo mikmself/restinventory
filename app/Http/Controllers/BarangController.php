@@ -157,7 +157,7 @@ class BarangController extends Controller
             }
     }
     public function indexBarangMasuk(){
-        $data = BarangMasuk::with(['barang','suplayer','kategori'])->paginate(20);
+        $data = BarangMasuk::with(['barang','suplayer','kategori'])->latest()->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
