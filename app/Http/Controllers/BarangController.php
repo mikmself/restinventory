@@ -623,8 +623,8 @@ class BarangController extends Controller
                 Barang::create([
                     'nama' => $row['nama_barang'],
                     'id_kategori' => 2,
-                    'satuan' => 0,
-                    'stok' => $row['jumlah']
+                    'satuan' => $row['satuan'],
+                    'stok' => 0
                 ]);
             }
 
@@ -670,8 +670,8 @@ class BarangController extends Controller
                 Barang::create([
                     'nama' => $row['nama_barang'],
                     'id_kategori' => 1,
-                    'satuan' => 0,
-                    'stok' => $row['jumlah']
+                    'satuan' => $row['satuan'],
+                    'stok' => 0
                 ]);
             }
 
