@@ -623,46 +623,28 @@ class BarangController extends Controller
                 Barang::create([
                     'nama' => $row['nama_barang'],
                     'id_kategori' => 2,
-                    'satuan' => $row['satuan'],
+                    'satuan' => 0,
                     'stok' => $row['jumlah']
                 ]);
-                $idSuplayer = Suplayer::where('nama',$row['suplayer'])->first()->id;
-                $idBarang = Barang::where('nama',$row['nama_barang'])->first()->id;
+            }
 
-                $data = BarangMasuk::create([
-                    'id_barang' => $idBarang,
-                    'id_suplayer' => $idSuplayer,
-                    'id_kategori' => 2,
-                    'jumlah' => $row['jumlah'],
-                    'tanggal_masuk' => Carbon::now(),
-                    'harga' => $row['harga'],
-                ]);
-                if($data){
-                    $databarang = Barang::where('nama',$row['nama_barang'])->first();
-                    $databarang->update([
-                        'stok' => $databarang->stok +  $row['jumlah']
-                    ]);
-                    array_push($arraydata,$data);
-                }
-            }else{
-                $idSuplayer = Suplayer::where('nama',$row['suplayer'])->first()->id;
-                $idBarang = Barang::where('nama',$row['nama_barang'])->first()->id;
+            $idSuplayer = Suplayer::where('nama',$row['suplayer'])->first()->id;
+            $idBarang = Barang::where('nama',$row['nama_barang'])->first()->id;
 
-                $data = BarangMasuk::create([
-                    'id_barang' => $idBarang,
-                    'id_suplayer' => $idSuplayer,
-                    'id_kategori' => 2,
-                    'jumlah' => $row['jumlah'],
-                    'tanggal_masuk' => Carbon::now(),
-                    'harga' => $row['harga'],
+            $data = BarangMasuk::create([
+                'id_barang' => $idBarang,
+                'id_suplayer' => $idSuplayer,
+                'id_kategori' => 2,
+                'jumlah' => $row['jumlah'],
+                'tanggal_masuk' => Carbon::now(),
+                'harga' => $row['harga'],
+            ]);
+            if($data){
+                $databarang = Barang::where('nama',$row['nama_barang'])->first();
+                $databarang->update([
+                    'stok' => $databarang->stok +  $row['jumlah']
                 ]);
-                if($data){
-                    $databarang = Barang::where('nama',$row['nama_barang'])->first();
-                    $databarang->update([
-                        'stok' => $databarang->stok +  $row['jumlah']
-                    ]);
-                    array_push($arraydata,$data);
-                }
+                array_push($arraydata,$data);
             }
         }
         return response()->json([
@@ -688,128 +670,68 @@ class BarangController extends Controller
                 Barang::create([
                     'nama' => $row['nama_barang'],
                     'id_kategori' => 1,
-                    'satuan' => $row['satuan'],
+                    'satuan' => 0,
                     'stok' => $row['jumlah']
                 ]);
-                $idSuplayer = Suplayer::where('nama',$row['suplayer'])->first()->id;
-                $idBarang = Barang::where('nama',$row['nama_barang'])->first()->id;
+            }
 
-                $data = BarangMasuk::create([
-                    'id_barang' => $idBarang,
-                    'id_suplayer' => $idSuplayer,
-                    'id_kategori' => 1,
-                    'jumlah' => $row['jumlah'],
-                    'tanggal_masuk' => Carbon::now(),
-                    'harga' => $row['harga'],
+            $idSuplayer = Suplayer::where('nama',$row['suplayer'])->first()->id;
+            $idBarang = Barang::where('nama',$row['nama_barang'])->first()->id;
+
+            $data = BarangMasuk::create([
+                'id_barang' => $idBarang,
+                'id_suplayer' => $idSuplayer,
+                'id_kategori' => 1,
+                'jumlah' => $row['jumlah'],
+                'tanggal_masuk' => Carbon::now(),
+                'harga' => $row['harga'],
+            ]);
+            if($data){
+                $databarang = Barang::where('nama',$row['nama_barang'])->first();
+                $databarang->update([
+                    'stok' => $databarang->stok +  $row['jumlah']
                 ]);
-                if($data){
-                    $databarang = Barang::where('nama',$row['nama_barang'])->first();
-                    $databarang->update([
-                        'stok' => $databarang->stok +  $row['jumlah']
-                    ]);
-                    array_push($arraydata,$data);
-                    // Pengaturan
-                    $prefix = Pengaturan::where('key','prefix')->pluck('value')->first();
-                    $infix = Pengaturan::where('key','infix')->pluck('value')->first();
-                    $suffix = Pengaturan::where('key','suffix')->pluck('value')->first();
-                    // mencari barang dengan nama yang mirip
-                    $selectbarangfisik = BarangFisik::where('kode','like','%' .  $databarang->nama . '%')->get();
-                    // Mencari max kode tertingi
-                    $max = $selectbarangfisik->max('kode');
-                    // Menacari barang fisik sesuai kode
-                    $barangfisik = BarangFisik::where('kode',$max)->first();
+                array_push($arraydata,$data);
+                // Pengaturan
+                $prefix = Pengaturan::where('key','prefix')->pluck('value')->first();
+                $infix = Pengaturan::where('key','infix')->pluck('value')->first();
+                $suffix = Pengaturan::where('key','suffix')->pluck('value')->first();
+                // mencari barang dengan nama yang mirip
+                $selectbarangfisik = BarangFisik::where('kode','like','%' .  $databarang->nama . '%')->get();
+                // Mencari max kode tertingi
+                $max = $selectbarangfisik->max('kode');
+                // Menacari barang fisik sesuai kode
+                $barangfisik = BarangFisik::where('kode',$max)->first();
 
-                    if($barangfisik === null){
-                        if($data){
-                            $databarangfisik = [];
-                            for ($i=1; $i <= $row['jumlah']; $i++) {
-                                $storebarangfisik = BarangFisik::create([
-                                    'id_barang' => $idBarang,
-                                    'kode' => $prefix . "." . $databarang->nama . "." . str_pad($i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
-                                ]);
-                                array_push($databarangfisik,$storebarangfisik);
-                            }
-                            $databarang->update([
-                                'stok' => $databarang->stok + $row['jumlah']
+                if($barangfisik === null){
+                    if($data){
+                        $databarangfisik = [];
+                        for ($i=1; $i <= $row['jumlah']; $i++) {
+                            $storebarangfisik = BarangFisik::create([
+                                'id_barang' => $idBarang,
+                                'kode' => $prefix . "." . $databarang->nama . "." . str_pad($i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
                             ]);
+                            array_push($databarangfisik,$storebarangfisik);
                         }
-                    }else{
-                        $explode = explode(".",$barangfisik->kode);
-                        $angkainfix = $explode[2];
-                        if($data){
-                            $databarangfisik = [];
-                            for ($i=1; $i <= $row['jumlah']; $i++) {
-                                $storebarangfisik = BarangFisik::create([
-                                    'id_barang' => $idBarang,
-                                    'kode' => $prefix . "." . $barang->nama . "." . str_pad($angkainfix+$i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
-                                ]);
-                                array_push($databarangfisik,$storebarangfisik);
-                            }
-                            $databarang->update([
-                                'stok' => $databarang->stok + $row['jumlah']
-                            ]);
-                        }
+                        $databarang->update([
+                            'stok' => $databarang->stok + $row['jumlah']
+                        ]);
                     }
-                }
-            }else{
-                $idSuplayer = Suplayer::where('nama',$row['suplayer'])->first()->id;
-                $idBarang = Barang::where('nama',$row['nama_barang'])->first()->id;
-
-                $data = BarangMasuk::create([
-                    'id_barang' => $idBarang,
-                    'id_suplayer' => $idSuplayer,
-                    'id_kategori' => 1,
-                    'jumlah' => $row['jumlah'],
-                    'tanggal_masuk' => Carbon::now(),
-                    'harga' => $row['harga'],
-                ]);
-                if($data){
-                    $databarang = Barang::where('nama',$row['nama_barang'])->first();
-                    $databarang->update([
-                        'stok' => $databarang->stok +  $row['jumlah']
-                    ]);
-                    array_push($arraydata,$data);
-                    // Pengaturan
-                    $prefix = Pengaturan::where('key','prefix')->pluck('value')->first();
-                    $infix = Pengaturan::where('key','infix')->pluck('value')->first();
-                    $suffix = Pengaturan::where('key','suffix')->pluck('value')->first();
-                    // mencari barang dengan nama yang mirip
-                    $selectbarangfisik = BarangFisik::where('kode','like','%' .  $databarang->nama . '%')->get();
-                    // Mencari max kode tertingi
-                    $max = $selectbarangfisik->max('kode');
-                    // Menacari barang fisik sesuai kode
-                    $barangfisik = BarangFisik::where('kode',$max)->first();
-
-                    if($barangfisik === null){
-                        if($data){
-                            $databarangfisik = [];
-                            for ($i=1; $i <= $row['jumlah']; $i++) {
-                                $storebarangfisik = BarangFisik::create([
-                                    'id_barang' => $idBarang,
-                                    'kode' => $prefix . "." . $databarang->nama . "." . str_pad($i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
-                                ]);
-                                array_push($databarangfisik,$storebarangfisik);
-                            }
-                            $databarang->update([
-                                'stok' => $databarang->stok + $row['jumlah']
+                }else{
+                    $explode = explode(".",$barangfisik->kode);
+                    $angkainfix = $explode[2];
+                    if($data){
+                        $databarangfisik = [];
+                        for ($i=1; $i <= $row['jumlah']; $i++) {
+                            $storebarangfisik = BarangFisik::create([
+                                'id_barang' => $idBarang,
+                                'kode' => $prefix . "." . $barang->nama . "." . str_pad($angkainfix+$i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
                             ]);
+                            array_push($databarangfisik,$storebarangfisik);
                         }
-                    }else{
-                        $explode = explode(".",$barangfisik->kode);
-                        $angkainfix = $explode[2];
-                        if($data){
-                            $databarangfisik = [];
-                            for ($i=1; $i <= $row['jumlah']; $i++) {
-                                $storebarangfisik = BarangFisik::create([
-                                    'id_barang' => $idBarang,
-                                    'kode' => $prefix . "." . $barang->nama . "." . str_pad($angkainfix+$i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
-                                ]);
-                                array_push($databarangfisik,$storebarangfisik);
-                            }
-                            $databarang->update([
-                                'stok' => $databarang->stok + $row['jumlah']
-                            ]);
-                        }
+                        $databarang->update([
+                            'stok' => $databarang->stok + $row['jumlah']
+                        ]);
                     }
                 }
             }
