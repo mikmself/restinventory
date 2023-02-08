@@ -102,6 +102,7 @@ class UserController extends Controller
                     'email' => $request->input('email'),
                     'nip' => $request->input('nip'),
                     'notelp' => $request->input('notelp'),
+                    'level' => $request->input('level'),
                 ]);
                 if($update){
                     return response()->json([
@@ -173,6 +174,17 @@ class UserController extends Controller
             'code' => 1,
             'message' => 'semua data telah berhasil dibuat',
             'data' => $arraydatauser
+        ]);
+    }
+    public function multipleDelete(Request $request){
+        $arrayId = $request->arrayId;
+        foreach($arrayId as $id){
+            User::whereId($id)->delete();
+        }
+        return response()->json([
+            'code' => 1,
+            'message' => 'data berhasil dihapus',
+            'data' => count($arrayId)
         ]);
     }
 }

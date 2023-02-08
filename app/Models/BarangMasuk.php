@@ -13,7 +13,8 @@ class BarangMasuk extends Model
         'id_kategori',
         'jumlah',
         'tanggal_masuk',
-        'harga'
+        'harga',
+        'sumber_dana'
     ];
 
     // belongsTo

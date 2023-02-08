@@ -171,7 +171,8 @@ class BarangController extends Controller
             'id_kategori' => 'required',
             'jumlah' => 'required',
             'tanggal_masuk' => 'required',
-            'harga' => 'required'
+            'harga' => 'required',
+            'sumber_dana' => 'required'
         ]);
         if($validator->fails()){
             return response()->json([
@@ -186,7 +187,6 @@ class BarangController extends Controller
             $kategori = $request->input('id_kategori');
             // kode 1 = barang modal
             // kode 2 = barang habis pakai
-
             if($kategori == 1){
                 // Pengaturan
                 $prefix = Pengaturan::where('key','prefix')->pluck('value')->first();
@@ -206,6 +206,7 @@ class BarangController extends Controller
                     'jumlah' => $jumlah,
                     'tanggal_masuk' => $request->input('tanggal_masuk'),
                     'harga' => $request->input('harga'),
+                    'sumber_dana' => $request->input('sumber_dana')
                 ]);
                 if($barangfisik === null){
                     if($data){
@@ -244,7 +245,8 @@ class BarangController extends Controller
                         for ($i=1; $i <= $jumlah; $i++) {
                             $storebarangfisik = BarangFisik::create([
                                 'id_barang' => $idbarang,
-                                'kode' => $prefix . "." . $barang->nama . "." . str_pad($angkainfix+$i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
+                                'kode' => $prefix . "." . $barang->nama . "." . str_pad($angkainfix+$i, $infix, '0', STR_PAD_LEFT) . "." . $suffix,
+                                'sumber_dana' => $request->input('sumber_dana')
                             ]);
                             array_push($databarangfisik,$storebarangfisik);
                         }
@@ -275,6 +277,7 @@ class BarangController extends Controller
                     'jumlah' => $jumlah,
                     'tanggal_masuk' => $request->input('tanggal_masuk'),
                     'harga' => $request->input('harga'),
+                    'sumber_dana' => $request->input('sumber_dana')
                 ]);
                 if($data){
                     $barang->update([
@@ -373,6 +376,14 @@ class BarangController extends Controller
     }
     public function indexBarangModalKeluar(){
         $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->paginate(20);
+        return response()->json([
+            'code' => 1,
+            'message' => 'semua data',
+            'data' => $data,
+        ]);
+    }
+    public function indexBarangModalKeluarId($id){
+        $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->where('id',$id)->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -638,6 +649,7 @@ class BarangController extends Controller
                 'jumlah' => $row['jumlah'],
                 'tanggal_masuk' => Carbon::now(),
                 'harga' => $row['harga'],
+                'sumber_dana' => $row['sumber_dana'],
             ]);
             if($data){
                 $databarang = Barang::where('nama',$row['nama_barang'])->first();
@@ -685,6 +697,7 @@ class BarangController extends Controller
                 'jumlah' => $row['jumlah'],
                 'tanggal_masuk' => Carbon::now(),
                 'harga' => $row['harga'],
+                'sumber_dana' => $row['sumber_dana'],
             ]);
             if($data){
                 $databarang = Barang::where('nama',$row['nama_barang'])->first();
@@ -709,7 +722,8 @@ class BarangController extends Controller
                         for ($i=1; $i <= $row['jumlah']; $i++) {
                             $storebarangfisik = BarangFisik::create([
                                 'id_barang' => $idBarang,
-                                'kode' => $prefix . "." . $databarang->nama . "." . str_pad($i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
+                                'kode' => $prefix . "." . $databarang->nama . "." . str_pad($i, $infix, '0', STR_PAD_LEFT) . "." . $suffix,
+                                'sumber_dana' => $row['sumber_dana'],
                             ]);
                             array_push($databarangfisik,$storebarangfisik);
                         }
@@ -740,6 +754,17 @@ class BarangController extends Controller
             'code' => 1,
             'message' => 'data berhasil di import',
             'data' => $arraydata
+        ]);
+    }
+    public function multipleDelete(Request $request){
+        $arrayId = $request->arrayId;
+        foreach($arrayId as $id){
+            Barang::whereId($id)->delete();
+        }
+        return response()->json([
+            'code' => 1,
+            'message' => 'data berhasil dihapus',
+            'data' => count($arrayId)
         ]);
     }
 }

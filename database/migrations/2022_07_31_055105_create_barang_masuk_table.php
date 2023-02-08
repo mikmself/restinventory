@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->timestamp('tanggal_masuk');
             $table->bigInteger('harga');
+            $table->string('sumber_dana');
             $table->timestamps();
         });
     }

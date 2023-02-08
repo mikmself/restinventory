@@ -133,4 +133,15 @@ class KategoriController extends Controller
                 ]);
             }
     }
+    public function multipleDelete(Request $request){
+        $arrayId = $request->arrayId;
+        foreach($arrayId as $id){
+            Kategori::whereId($id)->delete();
+        }
+        return response()->json([
+            'code' => 1,
+            'message' => 'data berhasil dihapus',
+            'data' => count($arrayId)
+        ]);
+    }
 }

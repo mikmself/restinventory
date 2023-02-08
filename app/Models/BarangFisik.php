@@ -10,7 +10,8 @@ class BarangFisik extends Model
     protected $fillable = [
         'id_barang',
         'kode',
-        'status_pengambilan'
+        'status_pengambilan',
+        'sumber_dana'
     ];
 
     // belongsTo

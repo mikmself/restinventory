@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('id_barang')->index()->constrained('barang')->onUpdate('cascade')->onDelete('cascade');
             $table->string('kode');
             $table->boolean('status_pengambilan')->default(false);
+            $table->string('sumber_dana');
             $table->timestamps();
         });
     }
