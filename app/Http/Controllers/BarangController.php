@@ -214,7 +214,8 @@ class BarangController extends Controller
                         for ($i=1; $i <= $jumlah; $i++) {
                             $storebarangfisik = BarangFisik::create([
                                 'id_barang' => $idbarang,
-                                'kode' => $prefix . "." . $barang->nama . "." . str_pad($i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
+                                'kode' => $prefix . "." . $barang->nama . "." . str_pad($i, $infix, '0', STR_PAD_LEFT) . "." . $suffix,
+                                'sumber_dana' => $request->input('sumber_dana')
                             ]);
                             array_push($databarangfisik,$storebarangfisik);
                         }
@@ -739,7 +740,8 @@ class BarangController extends Controller
                         for ($i=1; $i <= $row['jumlah']; $i++) {
                             $storebarangfisik = BarangFisik::create([
                                 'id_barang' => $idBarang,
-                                'kode' => $prefix . "." . $barang->nama . "." . str_pad($angkainfix+$i, $infix, '0', STR_PAD_LEFT) . "." . $suffix
+                                'kode' => $prefix . "." . $barang->nama . "." . str_pad($angkainfix+$i, $infix, '0', STR_PAD_LEFT) . "." . $suffix,
+                                'sumber_dana' => $row['sumber_dana'],
                             ]);
                             array_push($databarangfisik,$storebarangfisik);
                         }
