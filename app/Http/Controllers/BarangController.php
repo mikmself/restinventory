@@ -384,7 +384,7 @@ class BarangController extends Controller
         ]);
     }
     public function indexBarangModalKeluarId($id){
-        $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->where('id',$id)->get();
+        $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->where('id_barang',$id)->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
