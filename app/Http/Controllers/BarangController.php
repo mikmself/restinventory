@@ -383,11 +383,28 @@ class BarangController extends Controller
             'data' => $data,
         ]);
     }
-    public function indexBarangModalKeluarId($id){
-        $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->where('id_barang',$id)->get();
+    public function indexBarangModalKeluarId(Request $request,$id){
+        $start = $request->input('start');
+        $end = $request->input('end');
+        $isRequestTime = isset($start) && isset($end);
+        if($isRequestTime){
+            $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->where('id_barang',$id)->whereBetween('created_at',[$start,$end])->get();
+        }else{
+            $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->where('id_barang',$id)->get();
+        }
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
+            'data' => $data,
+        ]);
+    }
+    public function showBarangModalKeluar($kode){
+        $data = BarangModalKeluar::whereHas('barangfisik',function($query) use($kode){
+            return $query->where('kode',$kode);
+        })->first();
+        return response()->json([
+            'code' => 1,
+            'message' => 'detail data',
             'data' => $data,
         ]);
     }

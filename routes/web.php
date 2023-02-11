@@ -33,7 +33,8 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->get('/confirmbarangkeluar/{id}','BarangController@confirmBarangKeluar');
 
         $router->get('/indexbarangmodalkeluar','BarangController@indexBarangModalKeluar');
-        $router->get('/indexbarangmodalkeluar/{id}','BarangController@indexBarangModalKeluarId');
+        $router->post('/indexbarangmodalkeluar/{id}','BarangController@indexBarangModalKeluarId');
+        $router->get('/showBarangModalKeluar/{kode}','BarangController@showBarangModalKeluar');
         $router->post('/barangmodalkeluar','BarangController@barangModalKeluar');
         $router->get('/confirmbarangmodalkeluar/{id}','BarangController@confirmBarangModalKeluar');
 
