@@ -42,15 +42,4 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function unitkerja(){
         return $this->belongsTo(UnitKerja::class,'id_unitkerja');
     }
-
-    // hasMany
-    public function barangkeluar(){
-        return $this->hasMany(BarangKeluar::class,'id_user');
-    }
-    public function barangmodalkeluar(){
-        return $this->hasMany(BarangModalKeluar::class,'id_user');
-    }
-    public function barangmodalpinjam(){
-        return $this->hasMany(BarangModalPinjam::class,'id_user');
-    }
 }

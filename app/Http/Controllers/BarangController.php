@@ -410,7 +410,7 @@ class BarangController extends Controller
     }
     public function barangModalKeluar(Request $request){
         $validator = Validator::make($request->all(),[
-            'id_user' => 'required',
+            'id_unitkerja' => 'required',
             'id_barang' => 'required',
             'id_barang_fisik' => 'required',
             'id_ruang' => 'required',
@@ -429,7 +429,7 @@ class BarangController extends Controller
             $databarangfisik = [];
             for ($i=0; $i < count($idbarangfisik); $i++) {
                 $data = BarangModalKeluar::create([
-                    'id_user' => $request->input('id_user'),
+                    'id_unitkerja' => $request->input('id_unitkerja'),
                     'id_barang' => $idbarang,
                     'id_barang_fisik' => $idbarangfisik[$i],
                     'id_ruang' => $request->input('id_ruang'),
@@ -487,7 +487,7 @@ class BarangController extends Controller
     }
     public function barangModalPinjam(Request $request){
         $validator = Validator::make($request->all(),[
-            'id_user' => 'required',
+            'id_unitkerja' => 'required',
             'id_barang' => 'required',
             'id_barang_fisik' => 'required',
             'tanggal_keluar' => 'required',
@@ -508,7 +508,7 @@ class BarangController extends Controller
             $databarangfisik = [];
             for ($i=0; $i < count($idbarangfisik); $i++) {
                 $data = BarangModalPinjam::create([
-                    'id_user' => $request->input('id_user'),
+                    'id_unitkerja' => $request->input('id_unitkerja'),
                     'id_barang' => $idbarang,
                     'id_barang_fisik' => $idbarangfisik[$i],
                     'id_ruang' => $request->input('id_ruang'),

@@ -8,7 +8,7 @@ class BarangModalKeluar extends Model
 {
     protected $table = "barang_modal_keluar";
     protected $fillable = [
-        'id_user',
+        'id_unitkerja',
         'id_barang',
         'id_barang_fisik',
         'tanggal_keluar',
@@ -17,8 +17,8 @@ class BarangModalKeluar extends Model
     ];
 
     // belongsTo
-    public function user(){
-        return $this->belongsTo(User::class,'id_user');
+    public function unitkerja(){
+        return $this->belongsTo(UnitKerja::class,'id_unitkerja');
     }
     public function barang(){
         return $this->belongsTo(Barang::class,'id_barang');

@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('barang_modal_pinjam', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user')->index()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('id_unitkerja')->index()->constrained('unit_kerja')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_barang')->index()->constrained('barang')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_barang_fisik')->index()->constrained('barang_fisik')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('id_ruang')->index()->constrained('ruang')->onUpdate('cascade')->onDelete('cascade');

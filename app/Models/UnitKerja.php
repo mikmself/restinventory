@@ -14,4 +14,14 @@ class UnitKerja extends Model
     public function user(){
         return $this->hasMany(User::class,'id_unitkerja');
     }
+    // hasMany
+    public function barangkeluar(){
+        return $this->hasMany(BarangKeluar::class,'id_unitkerja');
+    }
+    public function barangmodalkeluar(){
+        return $this->hasMany(BarangModalKeluar::class,'id_unitkerja');
+    }
+    public function barangmodalpinjam(){
+        return $this->hasMany(BarangModalPinjam::class,'id_unitkerja');
+    }
 }
