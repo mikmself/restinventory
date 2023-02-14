@@ -376,7 +376,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangModalKeluar(){
-        $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->latest()->paginate(20);
+        $data = BarangModalKeluar::with(['barang','unitkerja','barangfisik','ruang'])->latest()->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -388,9 +388,9 @@ class BarangController extends Controller
         $end = $request->input('end');
         $isRequestTime = isset($start) && isset($end);
         if($isRequestTime){
-            $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->where('id_barang',$id)->whereBetween('created_at',[$start,$end])->latest()->get();
+            $data = BarangModalKeluar::with(['barang','unitkerja','barangfisik','ruang'])->where('id_barang',$id)->whereBetween('created_at',[$start,$end])->latest()->get();
         }else{
-            $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->where('id_barang',$id)->latest()->get();
+            $data = BarangModalKeluar::with(['barang','unitkerja','barangfisik','ruang'])->where('id_barang',$id)->latest()->get();
         }
         return response()->json([
             'code' => 1,
@@ -478,7 +478,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangModalPinjam(){
-        $data = BarangModalPinjam::with(['barang','user','barangfisik','ruang'])->latest()->paginate(20);
+        $data = BarangModalPinjam::with(['barang','unitkerja','barangfisik','ruang'])->latest()->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
