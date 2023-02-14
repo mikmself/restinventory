@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Validator;
 class HomeController extends Controller
 {
     public function indexBarang(){
-        $data = Barang::with('kategori')->get();
+        $data = Barang::with('kategori')->latest()->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -26,7 +26,7 @@ class HomeController extends Controller
         ]);
     }
     public function indexBarangFisik(){
-        $data = BarangFisik::with('barang')->get();
+        $data = BarangFisik::with('barang')->latest()->get();
         return response()->json([
             'code' => 1,
             'message' => 'data barang fisik',
@@ -34,7 +34,7 @@ class HomeController extends Controller
         ]);
     }
     public function indexUser(){
-        $data = User::get();
+        $data = User::latest()->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -42,7 +42,7 @@ class HomeController extends Controller
         ]);
     }
     public function indexUnitKerja(){
-        $data = UnitKerja::get();
+        $data = UnitKerja::latest()->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -50,7 +50,7 @@ class HomeController extends Controller
         ]);
     }
     public function indexRuang(){
-        $data = Ruang::get();
+        $data = Ruang::latest()->get();
         return response()->json([
             'code' => 1,
             'message' => 'semua data',

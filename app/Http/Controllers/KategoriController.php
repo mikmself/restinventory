@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class KategoriController extends Controller
 {
     public function index(){
-        $data = Kategori::paginate(20);
+        $data = Kategori::latest()->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',

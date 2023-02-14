@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class RuangController extends Controller
 {
     public function index(){
-        $data = Ruang::paginate(20);
+        $data = Ruang::latest()->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',

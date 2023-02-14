@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Validator;
 class BarangController extends Controller
 {
     public function index(){
-        $data = Barang::with('kategori')->paginate(20);
+        $data = Barang::with('kategori')->latest()->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -26,7 +26,7 @@ class BarangController extends Controller
         ]);
     }
     public function indexBarangFisik(){
-        $data = BarangFisik::with('barang')->paginate(20);
+        $data = BarangFisik::with('barang')->latest()->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'data barang fisik',
@@ -34,9 +34,9 @@ class BarangController extends Controller
         ]);
     }
     public function indexConfrim(){
-        $barangkeluar = BarangKeluar::where('confirm','false')->get();
-        $barangmodalkeluar = BarangModalKeluar::where('confirm','false')->get();
-        $barangmodalpinjam = BarangModalPinjam::where('confirm','false')->get();
+        $barangkeluar = BarangKeluar::where('confirm','false')->latest()->get();
+        $barangmodalkeluar = BarangModalKeluar::where('confirm','false')->latest()->get();
+        $barangmodalpinjam = BarangModalPinjam::where('confirm','false')->latest()->get();
         return response()->json([
             'code' => 1,
             'message' => 'data barang yang belum di confirm',
@@ -300,7 +300,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangKeluar(){
-        $data = BarangKeluar::with(['barang','unitkerja'])->paginate(20);
+        $data = BarangKeluar::with(['barang','unitkerja'])->latest()->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -376,7 +376,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangModalKeluar(){
-        $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->paginate(20);
+        $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->latest()->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -388,9 +388,9 @@ class BarangController extends Controller
         $end = $request->input('end');
         $isRequestTime = isset($start) && isset($end);
         if($isRequestTime){
-            $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->where('id_barang',$id)->whereBetween('created_at',[$start,$end])->get();
+            $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->where('id_barang',$id)->whereBetween('created_at',[$start,$end])->latest()->get();
         }else{
-            $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->where('id_barang',$id)->get();
+            $data = BarangModalKeluar::with(['barang','user','barangfisik','ruang'])->where('id_barang',$id)->latest()->get();
         }
         return response()->json([
             'code' => 1,
@@ -478,7 +478,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangModalPinjam(){
-        $data = BarangModalPinjam::with(['barang','user','barangfisik','ruang'])->paginate(20);
+        $data = BarangModalPinjam::with(['barang','user','barangfisik','ruang'])->latest()->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
@@ -559,7 +559,7 @@ class BarangController extends Controller
         }
     }
     public function indexBarangModalKembali(){
-        $data = BarangModalKembali::with(['barang','barangfisik'])->paginate(20);
+        $data = BarangModalKembali::with(['barang','barangfisik'])->latest()->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',

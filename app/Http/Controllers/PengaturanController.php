@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class PengaturanController extends Controller
 {
     public function index(){
-        $data = Pengaturan::paginate(20);
+        $data = Pengaturan::latest()->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',

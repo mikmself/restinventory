@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class SuplayerController extends Controller
 {
     public function index(){
-        $data = Suplayer::paginate(20);
+        $data = Suplayer::latest()->paginate(20);
         return response()->json([
             'code' => 1,
             'message' => 'semua data',
