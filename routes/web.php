@@ -15,6 +15,8 @@ $router->group(['prefix' => '/user/nonauth'], function () use ($router) {
     $router->post('/barangmodalpinjam', 'HomeController@barangModalPinjam');
 });
 
+$router->get('/barang/fisik/{kode}','BarangController@detailBarangFisik');
+
 $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router) {
     $router->get('/cektoken/token', 'AuthController@cektoken');
     $router->post('/auth/updatepass', 'AuthController@updatepass');
