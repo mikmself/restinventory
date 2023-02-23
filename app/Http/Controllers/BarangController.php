@@ -35,12 +35,12 @@ class BarangController extends Controller
     }
     public function detailBarangFisik($kode){
         $barangfisik = BarangFisik::with('barang')->where('kode',$kode)->first();
-        $barangkeluar = BarangModalKeluar::with(['barang','unitkerja','ruang'])->where('id_barang_fisik',$barangfisik->id)->first();
-        if (isset($barangfisik) && isset($barangkeluar)){
+        $barangkeluar = BarangModalKeluar::with(['barang','unitkerja','barangfisik','ruang'])->where('id_barang_fisik',$barangfisik->id)->first();
+        if (isset($barangkeluar)){
             return response()->json([
                 'code' => 1,
                 'message' => 'detail data barang fisik',
-                'data' => $barangfisik, $barangkeluar
+                'data' => $barangkeluar
             ]);
         }else{
             return response()->json([
