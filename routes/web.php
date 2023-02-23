@@ -22,6 +22,7 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
     $router->group(['prefix' => 'barang'], function () use ($router) {
         $router->get('/','BarangController@index');
         $router->get('/fisik','BarangController@indexBarangFisik');
+        $router->get('/fisik/{kode}','BarangController@detailBarangFisik');
         $router->get('/indexconfrim','BarangController@indexConfrim');
         $router->post('/search','BarangController@search');
 

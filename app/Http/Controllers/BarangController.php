@@ -33,6 +33,23 @@ class BarangController extends Controller
             'data' => $data
         ]);
     }
+    public function detailBarangFisik($kode){
+        $barangfisik = BarangFisik::with('barang')->where('kode',$kode)->first();
+        $barangkeluar = BarangModalKeluar::with(['barang','unitkerja','ruang'])->where('id_barang_fisik',$barangfisik->id)->first();
+        if (isset($barangfisik) && isset($barangkeluar)){
+            return response()->json([
+                'code' => 1,
+                'message' => 'detail data barang fisik',
+                'data' => $barangfisik, $barangkeluar
+            ]);
+        }else{
+            return response()->json([
+                'code' => 0,
+                'message' => 'data tidak ditemukan',
+                'data' => []
+            ]);
+        }
+    }
     public function indexConfrim(){
         $barangkeluar = BarangKeluar::where('confirm','false')->latest()->get();
         $barangmodalkeluar = BarangModalKeluar::where('confirm','false')->latest()->get();
