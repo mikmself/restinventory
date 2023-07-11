@@ -9,6 +9,8 @@ use App\Models\BarangMasuk;
 use App\Models\BarangModalKeluar;
 use App\Models\BarangModalKembali;
 use App\Models\BarangModalPinjam;
+use App\Models\UnitKerja;
+use Illuminate\Support\Facades\Validator;
 
 class LaporanController extends Controller
 {
@@ -48,6 +50,48 @@ class LaporanController extends Controller
             ]);
         }
     }
+    public function laporanBarangKeluarUnitKerja(Request $request){
+        $validator = Validator::make($request->all(),[
+            'start' => 'required',
+            'end' => 'required',
+            'id_unitkerja' => 'required',
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                'code' => 400,
+                'message' => $validator->errors(),
+                'data' => []
+            ],400);
+        }else{
+            $start = $request->input('start');
+            $end = $request->input('end');
+            $unitKerja = $request->input('id_unitkerja'); 
+            $isExistUnitKerja = UnitKerja::where('id',$unitKerja)->first();
+            if(!isset($isExistUnitKerja)){
+                return response()->json([
+                    'code' => 400,
+                    'message' => 'unit kerja tidak ada',
+                    'data' => []
+                ],400);
+            }
+            $data = BarangKeluar::with('barang','unitkerja')->whereHas('unitkerja',function($query) use($unitKerja){
+                return $query->where('id',$unitKerja);
+            })->whereBetween('created_at',[$start,$end])->get();
+            if(isset($data)){
+                return response()->json([
+                    'code' => 1,
+                    'message' => $isExistUnitKerja->nama,
+                    'data' => $data
+                ]);
+            }else{
+                return response()->json([
+                    'code' => 404,
+                    'message' => 'data tidak ditemukan!',
+                    'data' => []
+                ],404);
+            }
+        }
+    }
     public function laporanBarangKeluar(Request $request){
         $start = $request->input('start');
         $end = $request->input('end');
@@ -69,7 +113,6 @@ class LaporanController extends Controller
         }else{
             $data = [];
         }
-
         if(isset($data)){
             return response()->json([
                 'code' => 1,

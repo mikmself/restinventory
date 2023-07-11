@@ -116,5 +116,6 @@ $router->group(['middleware' => ['auth', 'cektoken']], function () use ($router)
         $router->post('/barangmodalkeluar','LaporanController@laporanBarangModalKeluar');
         $router->post('/barangmodalpinjam','LaporanController@laporanBarangModalPinjam');
         $router->post('/barangmodalkembali','LaporanController@laporanBarangModalKembali');
+        $router->post('/laporanbarangkeluarunitkerja','LaporanController@laporanBarangKeluarUnitKerja');
     });
 });
